@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark-mode{
+    background-color: rgb(2, 5, 21);
+    color: white;
+}
+
+.button-88 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.3em 1.4em 0.3em 1.1em;
+    color: white;
+    background: #0f0e0e;
+    background: linear-gradient(135deg, #5dc930 0%, #34930c 100%);
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    letter-spacing: 0.05em;
+    border-radius: 1em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    &:hover {
+      box-shadow: 0 0.5em 1.5em -0.5em #5dc930;
+      transform: scale(1.05); 
+      background: linear-gradient(-135deg, #5dc930 0%, #34930c 100%);
+    }
+  
+    &:active {
+      box-shadow: 0 0.3em 1em -0.5em #5dc930;
+    }
+  
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+  }  

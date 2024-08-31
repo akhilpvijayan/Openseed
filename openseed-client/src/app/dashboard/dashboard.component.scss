@@ -1,0 +1,23 @@
+#boxes {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* This ensures the boxes align at the top */
+}
+
+/* Left box positioned at the center left of the container */
+#leftbox {
+    width: 35%;
+    height: 100%;
+    margin-right: 1%; 
+    margin-left: 1%; /* Space between left box and middle box */
+    align-self: center; /* Aligns to the center of the container */
+    height: calc(100vh - 80px);
+}
+
+/* Middle box positioned in the center */
+#middlebox {
+    width: 65%;
+    overflow-y: auto;
+    height: 100%;
+    height: calc(100vh - 80px);
+}

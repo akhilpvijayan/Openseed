@@ -1,0 +1,25 @@
+<div class="search-container">
+    <div *ngIf="issues.length > 0">
+        <ul>
+            <li *ngFor="let issue of issues">
+                <div class="content">
+                    <a [href]="issue?.html_url" target="_blank" [ngClass]="{ 'dark-mode': isDarkMode }"><b>{{
+                            issue?.title }}</b></a>
+                    <p>{{ issue?.body }}</p>
+                    <span class="repo-details">Repo: {{ issue?.repository_name }}&nbsp;&nbsp;
+                        <a [href]="'https://github.com/' + issue?.owner_name" target="_blank"><i
+                            class="fa-regular fa-user"></i>
+                        {{ issue?.owner_name }}<br /></a></span>
+                    <span class="details"><i class="fa-regular fa-star"> {{ issue?.stars_count ?? 0 }} </i>&nbsp; <i
+                            class="fa-solid fa-language"></i>
+                        {{ issue?.language }}&nbsp;
+                        <i class="fa-solid fa-calendar-days">
+                            {{ issue?.created_at | date }}</i>&nbsp;
+                        <span [ngClass]="{ 'dark-mode': isDarkMode }" *ngIf="issue?.status">
+                            Status: {{ issue?.status }}</span>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

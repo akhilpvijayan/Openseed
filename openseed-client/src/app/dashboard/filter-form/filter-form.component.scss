@@ -1,0 +1,228 @@
+.container{
+    width: 100%;
+    padding: 20px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    border: 1px solid rgba(128, 128, 128, 0.374);
+  
+    &.dark-mode{
+      background-color: #3D3D3D;
+      color: #fcfcfc;
+  }
+  }
+  .container .title{
+      color: grey;
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+
+    i{
+        font-size: 20px;
+        opacity: 0.6;
+    }
+  }
+  
+  .dark-mode-box {
+    background-color: #181818;
+  }
+  .content form .filter-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 0 2px 0;
+  }
+  form .filter-details .input-box{
+    margin-bottom: 10px;
+    width: calc(100% / 2 - 5px);
+  }
+  form .input-box span.details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+  .filter-details .input-box input,
+  .filter-details .input-box select{
+    height: 35px;
+    width: 100%;
+    outline: none;
+    font-size: 13px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+
+    .dark-mode{
+        background-color: rgb(2, 5, 21);
+    }
+  }
+  
+  #terms{
+    height: 15px ;
+    width: 10%;
+    outline: none;
+    font-size: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .check{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .filter-details .input-box textarea{
+    height: 35px;
+    width: 100%;
+    outline: none;
+    font-size: 13px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-details .input-box input:focus,
+  .filter-details .input-box input:not(:placeholder-shown),
+  .filter-details .input-box select:focus,
+  .filter-details .input-box select:not([value=""]) {
+      border-color: #5dc930 !important;
+  }
+
+  .filter-details .input-box textarea:focus,
+  .filter-details .input-box textarea:not(:placeholder-shown) {
+    border-color: #5dc930;
+  }
+  
+   form .gender-details .gender-title{
+    font-size: 13px;
+    font-weight: 500;
+   }
+   form .category{
+     display: flex;
+     width: 80%;
+     margin: 14px 0 ;
+     justify-content: space-between;
+   }
+   form .category label{
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+   }
+   form .category label .dot{
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #d9d9d9;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+  }
+   #dot-1:checked ~ .category label .one,
+   #dot-2:checked ~ .category label .two,
+   #dot-3:checked ~ .category label .three{
+     background: #5dc930;
+     border-color: #d9d9d9;
+   }
+   form input[type="radio"]{
+     display: none;
+   }
+   form .button{
+     height: 45px;
+     margin: 15px 0
+   }
+   form .button input{
+     height: 100%;
+     width: 100%;
+     border-radius: 20em;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     font-weight: 500;
+     letter-spacing: 1px;
+     cursor: pointer;
+     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+     background: linear-gradient(135deg, #5dc930 0%, #d55003 100%);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
+   form .button input:hover{
+    background: linear-gradient(-135deg, #5dc930 0%, #d55003 100%);
+    transform: scale(1.02); 
+    }
+  
+  .error{
+    color: red;
+    font-size: 12px;
+  }
+  
+  .disabled-button {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
+  .upload-button {
+    position: relative;
+    width: 10%;
+    height: 40px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+  
+  .upload-button::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  
+  .upload-button::before {
+    content: '+ Upload Profile Image *';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    background: linear-gradient(0deg, #d55003 0%, #5dc930 100%);
+    color: white;
+    line-height: 1.2;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .upload-button:hover::before {
+    background: linear-gradient(0deg, #d55003 0%, #5dc930 100%);
+    box-shadow: 0 0.5em 1.5em -0.5em #5dc930;
+  }
+  
+   @media(max-width: 584px){
+   .container{
+    max-width: 100%;
+  }
+  form .filter-details .input-box{
+      margin-bottom: 15px;
+      width: 100%;
+    }
+    form .category{
+      width: 100%;
+    }
+    .content form .filter-details{
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+    .filter-details::-webkit-scrollbar{
+      width: 5px;
+    }
+    }
+    @media(max-width: 459px){
+    .container .content .category{
+      flex-direction: column;
+    }
+  }
