@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environment';
 import { FilterParams } from '../interface/filter-params';
 import { Issue } from '../interface/issue';
 
@@ -92,7 +93,7 @@ export class GitHubService {
 
     try {
       const response = await this.http.post<any>(
-        '/api/github-fetch', // Call the serverless function
+        environment.server + 'api/fetch-issues', // Call the serverless function
         {
           query,
           variables
