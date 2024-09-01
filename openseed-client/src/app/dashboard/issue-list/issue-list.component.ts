@@ -33,13 +33,17 @@ export class IssueListComponent implements OnInit{
   }
 
   searchIssues() {
-    this.githubService.fetchGitHubIssues(this.params).then(response => {
-      this.issues = response.issues;
-      console.log(this.issues);
-    }).catch(error => {
-      console.error("Error loading issues", error);
-    });
+    this.githubService.fetchGitHubIssues(this.params).subscribe(
+      (response: any) => {
+        this.issues = response.issues;
+        console.log(this.issues);
+      },
+      (error: any) => {
+        console.error("Error loading issues", error);
+      }
+    );
   }
+  
 
   buildQuery(): string {
     // Example: Customize this to build the query string based on user input
