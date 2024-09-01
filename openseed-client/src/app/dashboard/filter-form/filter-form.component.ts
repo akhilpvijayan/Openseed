@@ -31,17 +31,17 @@ export class FilterFormComponent implements OnInit{
       language: [''],
       framework: [''],
       status: [''],
-      lable: [''],
+      label: [''],
       category: [''],
-      minForks: [0],
-      minStars: [0],
-      maxStars: [1000000],
-      createdBefore: [''],
-      createdAfter: [''],
-      fork: [''],
       title: [''],
       body: [''],
       project: [''],
+      minStars: [0],
+      maxStars: [10000],
+      createdBefore: [''],
+      createdAfter: [''],
+      minForks: [0],
+      maxForks: [10000]
     });
   }
 

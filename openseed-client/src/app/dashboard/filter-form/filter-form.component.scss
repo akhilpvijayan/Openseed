@@ -1,6 +1,6 @@
 .container{
     width: 100%;
-    padding: 20px 30px;
+    padding: 10px 15px;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
     border: 1px solid rgba(128, 128, 128, 0.374);
@@ -12,12 +12,12 @@
   }
   .container .title{
       color: grey;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: 500;
     position: relative;
 
     i{
-        font-size: 20px;
+        font-size: 15px;
         opacity: 0.6;
     }
   }
@@ -32,30 +32,26 @@
     margin: 5px 0 2px 0;
   }
   form .filter-details .input-box{
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: calc(100% / 2 - 5px);
   }
   form .input-box span.details{
     display: block;
     font-weight: 500;
     margin-bottom: 2px;
-    font-size: 14px;
+    font-size: 12px;
   }
   .filter-details .input-box input,
   .filter-details .input-box select{
-    height: 35px;
+    height: 30px;
     width: 100%;
     outline: none;
-    font-size: 13px;
+    font-size: 10px;
     border-radius: 5px;
     padding-left: 15px;
     border: 1px solid #ccc;
     border-bottom-width: 2px;
     transition: all 0.3s ease;
-
-    .dark-mode{
-        background-color: rgb(2, 5, 21);
-    }
   }
   
   #terms{

@@ -9,7 +9,10 @@ export class DarkModeService {
   darkMode$ = this.darkModeSubject.asObservable();
 
   constructor() {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if(localStorage.getItem('darkMode') === null){
+      isDarkMode = true;
+    }
     if (isDarkMode) {
       this.enableDarkMode();
     }

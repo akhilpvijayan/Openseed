@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    server: 'http://localhost:3000/'
+    server: 'https://openseed-server.vercel.app/api/fetch-issues'
   };

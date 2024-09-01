@@ -13,13 +13,14 @@ export class IssueListComponent implements OnInit{
   isDarkMode = localStorage.getItem('darkMode') === 'true';
   issues: any[] = [];
   params: FilterParams = {
-    language: 'JavaScript',
+    language: 'C#',
     isAssigned: false,
     hasPullRequests: true,
     minStars: 10,
     maxStars: 1000,
-    minForks: 5,
-    cursor: ''
+    minForks: 0,
+    cursor: '',
+    category: 'web development',
   };
   constructor(private githubService: GitHubService,
     private darkModeService: DarkModeService) {

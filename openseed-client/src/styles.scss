@@ -8,6 +8,13 @@
     color: white;
 }
 
+input{
+  .dark-mode{
+    background-color: rgb(150, 150, 150);
+    color: white;
+}
+}
+
 .button-88 {
     display: flex;
     align-items: center;
@@ -22,7 +29,7 @@
     border: none;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     letter-spacing: 0.05em;
-    border-radius: 1em;
+    border-radius: 0.5em;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
