@@ -9,7 +9,7 @@ import { Issue } from '../interface/issue';
   providedIn: 'root'
 })
 export class GitHubService {
-  private backendUrl = 'http://localhost:3000/api/fetch-issues'; // Replace with actual backend URL
+  private backendUrl = 'https://openseed-server.vercel.app/api/fetch-issues';
 
   constructor(private http: HttpClient) {}
 
