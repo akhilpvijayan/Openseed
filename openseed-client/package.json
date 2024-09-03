@@ -21,6 +21,7 @@
     "@coreui/icons": "^3.0.1",
     "graphql": "^16.9.0",
     "graphql-request": "^7.1.0",
+    "ngx-infinite-scroll": "^16.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
