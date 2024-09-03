@@ -2,6 +2,7 @@
 
 .search-container {
     margin-top: 20px;
+    height: 100%;
 }
 
 ul {
@@ -59,4 +60,44 @@ li {
 
 .user{
     font-size: 10px;
+}
+
+.load {
+    display: flex; /* Add this line */
+    align-items: center;
+    justify-content: center;
+
+    button{
+        display: flex;
+        width: 90%;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 0.3em 1.4em 0.3em 1.1em;
+        color: white;
+        background: #0f0e0e;
+        background: linear-gradient(135deg, #131f0e00 0%, #34930c00 100%);
+        border: 1px solid rgb(57, 57, 57);
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        margin-bottom: 2px;
+        color: grey;
+        letter-spacing: 0.05em;
+        border-radius: 0.5em;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+        &:hover {
+          transform: scale(1.05); 
+        }
+    }
+
+    .dark-mode{
+        color: rgba(255, 255, 255, 0.856);
+        border: 1px solid white;
+    }
 }

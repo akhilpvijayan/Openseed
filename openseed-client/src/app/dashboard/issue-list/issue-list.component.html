@@ -1,4 +1,4 @@
-<div class="search-container">
+<div class="search-container" (scroll)="onContainerScroll($event.target)">
     <div *ngIf="issues.length > 0">
         <ul>
             <li *ngFor="let issue of issues">
@@ -21,4 +21,14 @@
             </li>
         </ul>
     </div>
+    <div *ngIf="hasNextPage" class="load" (click)="loadIssues()" [ngClass]="{ 'dark-mode': isDarkMode }">
+        <button>Load More..</button>
+      </div>
+    <div *ngIf="isLoading">
+        <p>Loading more issues...</p>
+      </div>
+      
+      <div *ngIf="!hasNextPage && !isLoading">
+        <p>No more issues to load.</p>
+      </div>
 </div>

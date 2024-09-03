@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from  '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]
