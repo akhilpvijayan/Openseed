@@ -21,8 +21,8 @@
             </li>
         </ul>
     </div>
-    <div *ngIf="hasNextPage" class="load" (click)="loadIssues()" [ngClass]="{ 'dark-mode': isDarkMode }">
-        <button>Load More..</button>
+    <div *ngIf="hasNextPage" class="load" (click)="loadIssues()">
+        <button [ngClass]="{ 'dark-mode': isDarkMode }">Load More..</button>
       </div>
     <div *ngIf="isLoading">
         <p>Loading more issues...</p>
