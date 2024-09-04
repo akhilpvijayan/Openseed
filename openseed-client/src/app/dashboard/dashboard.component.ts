@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  filter: any;
 
+  receiveFilter($event: any) {
+    this.filter = $event;
+  }
 }

@@ -1,10 +1,10 @@
 <app-nav-bar></app-nav-bar>
 <div id="boxes">
     <div id="leftbox">
-        <app-filter-form></app-filter-form>
+        <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
     </div>
 
     <div id="middlebox" #middlebox>
-        <app-issue-list></app-issue-list>
+        <app-issue-list [filter]="filter"></app-issue-list>
     </div>
 </div>

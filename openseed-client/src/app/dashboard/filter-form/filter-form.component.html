@@ -1,78 +1,80 @@
 <div class="container">
-    <div class="title"><i class="fa-solid fa-filter"></i> Filter</div>
-    <div class="content">
-      <form [formGroup]="filterForm" (ngSubmit)="searchIssues()">
-        <div class="filter-details">
-          <div class="input-box">
-            <span class="details">Language</span>
-            <input type="text" formControlName="language" placeholder="eg: C#, Typescript" [ngClass]="{ 'dark-mode': isDarkMode }">
-          </div>
-          <div class="input-box">
-            <span class="details">Framework</span>
-            <input type="text" formControlName="framework" placeholder="eg: Reactjs, Angular" [ngClass]="{ 'dark-mode': isDarkMode }">
-          </div>
+  <div class="title">
+    <i class="fa-solid fa-filter"></i> {{ 'FILTER' | translate }}
+  </div>
+  <div class="content">
+    <form [formGroup]="filterForm" (ngSubmit)="searchIssues()">
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'LANGUAGE' | translate }}</span>
+          <input type="text" formControlName="language" [placeholder]="'eg: C#, Typescript'" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
-        <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Status</span>
-              <input type="text" formControlName="status" placeholder="eg: open" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Label</span>
-              <input type="text" formControlName="label" placeholder="eg: bug" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-          <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Category</span>
-              <input type="text" formControlName="category" placeholder="eg: open" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Body</span>
-              <input type="text" formControlName="body" placeholder="Enter body details" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-          <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Project</span>
-              <input type="text" formControlName="project" placeholder="Enter project name" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Title</span>
-              <input type="text" formControlName="title" placeholder="Issue Title" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-          <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Min Stars</span>
-              <input type="number" formControlName="minStars" placeholder="0" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Max Stars</span>
-              <input type="number" formControlName="maxStars" placeholder="10000" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-          <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Created Before</span>
-              <input type="date" formControlName="createdBefore" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Created After</span>
-              <input type="date" formControlName="createdAfter" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-          <div class="filter-details">
-            <div class="input-box">
-              <span class="details">Min Forks</span>
-              <input type="number" formControlName="minForks" placeholder="0" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-            <div class="input-box">
-              <span class="details">Max Forks</span>
-              <input type="number" formControlName="maxForks" placeholder="10000" [ngClass]="{ 'dark-mode': isDarkMode }">
-            </div>
-          </div>
-      </form>
-    </div>
-    <button class="w-full px-3 py-1 button-88" id="submit">Filter</button>
+        <div class="input-box">
+          <span class="details">{{ 'FRAMEWORK' | translate }}</span>
+          <input type="text" formControlName="framework" [placeholder]="'eg: Reactjs, Angular'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'STATUS' | translate }}</span>
+          <input type="text" formControlName="status" [placeholder]="'eg: open'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'LABEL' | translate }}</span>
+          <input type="text" formControlName="label" [placeholder]="'eg: bug'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'CATEGORY' | translate }}</span>
+          <input type="text" formControlName="category" [placeholder]="'eg: open'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'BODY' | translate }}</span>
+          <input type="text" formControlName="body" [placeholder]="'Enter body details'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'PROJECT' | translate }}</span>
+          <input type="text" formControlName="project" [placeholder]="'Enter project name'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'TITLE' | translate }}</span>
+          <input type="text" formControlName="title" [placeholder]="'Issue Title'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'MIN_STARS' | translate }}</span>
+          <input type="number" formControlName="minStars" [placeholder]="'0'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'MAX_STARS' | translate }}</span>
+          <input type="number" formControlName="maxStars" [placeholder]="'10000'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'CREATED_BEFORE' | translate }}</span>
+          <input type="date" formControlName="createdBefore" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'CREATED_AFTER' | translate }}</span>
+          <input type="date" formControlName="createdAfter" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+      <div class="filter-details">
+        <div class="input-box">
+          <span class="details">{{ 'MIN_FORKS' | translate }}</span>
+          <input type="number" formControlName="minForks" [placeholder]="'0'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'MAX_FORKS' | translate }}</span>
+          <input type="number" formControlName="maxForks" [placeholder]="'10000'" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="w-full px-3 py-1 button-88" id="submit" (click)="searchIssues()">{{ 'FILTER' | translate }}</button>
 </div>

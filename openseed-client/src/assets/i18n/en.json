@@ -1,0 +1,23 @@
+{
+    "ENGLISH": "English",
+    "HINDI": "Hindi",
+    "ITALIAN": "Italian",
+    "GERMAN": "German",
+    "SPANISH": "Spanish",
+    "FILTER": "Filter",
+    "LANGUAGE": "Language",
+    "FRAMEWORK": "Framework",
+    "STATUS": "Status",
+    "LABEL": "Label",
+    "CATEGORY": "Category",
+    "BODY": "Body",
+    "PROJECT": "Project",
+    "TITLE": "Title",
+    "MIN_STARS": "Min Stars",
+    "MAX_STARS": "Max Stars",
+    "CREATED_BEFORE": "Created Before",
+    "CREATED_AFTER": "Created After",
+    "MIN_FORKS": "Min Forks",
+    "MAX_FORKS": "Max Forks"
+  }
+  

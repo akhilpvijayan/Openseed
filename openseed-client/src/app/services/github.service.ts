@@ -97,78 +97,78 @@ if (params.framework) {
 }
 
 // Filter by label
-if (params.label) {
-  const labels = params.label.split(" ");
-  const labelQuery = labels.map(label => `label:"${label}"`).join(" ");
-  queryString += ` ${labelQuery}`;
-}
+// if (params.label) {
+//   const labels = params.label.split(" ");
+//   const labelQuery = labels.map(label => `label:"${label}"`).join(" ");
+//   queryString += ` ${labelQuery}`;
+// }
 
-// Filter by category
-if (params.category && params.category !== "all") {
-  switch (params.category) {
-    case "web developement":
-      queryString += " topic:web"
-      break
-    case "mobile-dev":
-      queryString += " topic:mobile"
-      break
-    case "data-science":
-      queryString += " topic:data-science"
-      break
-    case "machine-learning":
-      queryString += " topic:machine-learning"
-      break
-    case "devops":
-      queryString += " topic:devops"
-      break
-    case "cybersecurity":
-      queryString += " topic:security"
-      break
-    case "documentation":
-      queryString += " topic:documentation"
-      break
-  }
-}
+// // Filter by category
+// if (params.category && params.category !== "all") {
+//   switch (params.category) {
+//     case "web developement":
+//       queryString += " topic:web"
+//       break
+//     case "mobile-dev":
+//       queryString += " topic:mobile"
+//       break
+//     case "data-science":
+//       queryString += " topic:data-science"
+//       break
+//     case "machine-learning":
+//       queryString += " topic:machine-learning"
+//       break
+//     case "devops":
+//       queryString += " topic:devops"
+//       break
+//     case "cybersecurity":
+//       queryString += " topic:security"
+//       break
+//     case "documentation":
+//       queryString += " topic:documentation"
+//       break
+//   }
+// }
 
-// Filter by status (e.g., open, closed)
-if (params.status) {
-  queryString += ` is:${params.status}`;
-}
+// // Filter by status (e.g., open, closed)
+// if (params.status) {
+//   queryString += ` is:${params.status}`;
+// }
 
-// Filter by creation date before a certain date
-if (params.createdBefore) {
-  queryString += ` created:<${params.createdBefore}`;
-}
+// // Filter by creation date before a certain date
+// if (params.createdBefore) {
+//   queryString += ` created:<${params.createdBefore}`;
+// }
 
-// Filter by creation date after a certain date
-if (params.createdAfter) {
-  queryString += ` created:>${params.createdAfter}`;
-}
+// // Filter by creation date after a certain date
+// if (params.createdAfter) {
+//   queryString += ` created:>${params.createdAfter}`;
+// }
 
-// Filter by fork count
-if (params.minForks || params.maxForks) {
-  if (params.minForks) {
-    queryString += ` forks:>=${params.minForks}`
-  }
-  if (params.maxForks) {
-      queryString += ` forks:<=${params.maxForks}`;
-  }
-}
+// // Filter by fork count
+// if (params.minForks || params.maxForks) {
+//   if (params.minForks) {
+//     queryString += ` forks:>=${params.minForks}`
+//   }
+//   if (params.maxForks) {
+//       queryString += ` forks:<=${params.maxForks}`;
+//   }
+// }
 
-// Filter by title
-if (params.title) {
-  queryString += `${params.title} in:name`;
-}
+// // Filter by title
+// if (params.title) {
+//   queryString += `${params.title} in:name`;
+// }
 
-// Filter by body
-if (params.body) {
-  queryString += `${params.body} in:description`;
-}
+// // Filter by body
+// if (params.body) {
+//   queryString += `${params.body} in:description`;
+// }
 
-// Filter by project 
-if (params.project) {
-  queryString += ` project:${params.project}`;
-}
+// // Filter by project 
+// if (params.project) {
+//   queryString += ` project:${params.project}`;
+// }
 
 queryString += " sort:created-desc"; // Sorting
 

@@ -1,0 +1,23 @@
+{
+    "ENGLISH": "अंग्रेज़ी",
+    "HINDI": "हिंदी",
+    "ITALIAN": "इतालवी",
+    "GERMAN": "जर्मन",
+    "SPANISH": "स्पेनिश",
+    "FILTER": "फिल्टर",
+    "LANGUAGE": "भाषा",
+    "FRAMEWORK": "फ्रेमवर्क",
+    "STATUS": "स्थिति",
+    "LABEL": "लेबल",
+    "CATEGORY": "श्रेणी",
+    "BODY": "विवरण",
+    "PROJECT": "प्रोजेक्ट",
+    "TITLE": "शीर्षक",
+    "MIN_STARS": "न्यूनतम सितारे",
+    "MAX_STARS": "अधिकतम सितारे",
+    "CREATED_BEFORE": "निर्मित पहले",
+    "CREATED_AFTER": "निर्मित बाद",
+    "MIN_FORKS": "न्यूनतम कांटे",
+    "MAX_FORKS": "अधिकतम कांटे"
+  }
+  

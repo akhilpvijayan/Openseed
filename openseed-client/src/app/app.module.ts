@@ -8,11 +8,19 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterFormComponent } from './dashboard/filter-form/filter-form.component';
 import { IssueListComponent } from './dashboard/issue-list/issue-list.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from  '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from  '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { LoaderSkeletonComponent } from './shared/Loaders/loader-skeleton/loader-skeleton.component';
+import { SpinLoaderComponent } from './shared/Loaders/spin-loader/spin-loader.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -20,7 +28,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     DashboardComponent,
     FilterFormComponent,
     IssueListComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoaderSkeletonComponent,
+    SpinLoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +44,14 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
       preventDuplicates: true,
     }),
     BrowserAnimationsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

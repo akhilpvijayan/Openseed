@@ -14,6 +14,7 @@
   font-weight: 400;
   font-size: 40px;
   font-style: normal;
+  z-index: 9999;
 }
 
 .navbar-icon {
@@ -27,4 +28,85 @@
 
 .dark{
     font-size: 25px;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  font-size: 12px;
+  font-weight: bold;
+  color: #1e1e1e;
+  cursor: pointer;
+
+  &.dark-mode {
+    background-color: #19191951;
+    color: #e2e2e2;
+
+    .select-items {
+      position: absolute;
+      background-color: #2b2b2b;
+      border: 1px solid grey;
+      border-radius: 5px;
+      width: 120px;
+      z-index: 99;
+      max-height: auto;
+      overflow-y: auto;
+    }
+
+    .select-item:hover {
+      background-color: #818181;
+    }
+  }
+}
+
+.select-selected {
+  padding: 8px 12px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.select-items {
+  position: absolute;
+  background-color: #fbf9f9;
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 120px;
+  z-index: 99;
+  max-height: auto;
+  overflow-y: auto;
+}
+
+.select-item {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.select-item:hover {
+  background-color: #464646;
+  color: white;
+}
+
+.flag-icon {
+  width: 20px;
+  height: auto;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+.select-selected.dark-mode,
+.select-items.dark-mode {
+  background-color: #343a40;
+  color: #adb5bd;
+  border: none;
+}
+
+.select-selected.dark-mode:hover,
+.select-items.dark-mode .select-item:hover {
+  background-color: #212529;
 }

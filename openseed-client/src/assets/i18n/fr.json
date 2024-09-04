@@ -1,0 +1,23 @@
+{
+    "ENGLISH": "Anglais",
+    "HINDI": "Hindi",
+    "ITALIAN": "Italien",
+    "GERMAN": "Allemand",
+    "SPANISH": "Espagnol",
+    "FILTER": "Filtrer",
+    "LANGUAGE": "Langue",
+    "FRAMEWORK": "Cadre",
+    "STATUS": "Statut",
+    "LABEL": "Étiquette",
+    "CATEGORY": "Catégorie",
+    "BODY": "Corps",
+    "PROJECT": "Projet",
+    "TITLE": "Titre",
+    "MIN_STARS": "Étoiles Min",
+    "MAX_STARS": "Étoiles Max",
+    "CREATED_BEFORE": "Créé avant",
+    "CREATED_AFTER": "Créé après",
+    "MIN_FORKS": "Fourchettes Min",
+    "MAX_FORKS": "Fourchettes Max"
+  }
+  

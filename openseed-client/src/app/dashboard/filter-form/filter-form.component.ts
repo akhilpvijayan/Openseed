@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
-import { GitHubService } from 'src/app/services/github.service';
 
 @Component({
   selector: 'app-filter-form',
@@ -13,9 +12,9 @@ export class FilterFormComponent implements OnInit{
   isDarkMode = this.darkModeService.isDarkModeEnabled();
   searchQuery = '';
   issues: any;
+  @Output() filters = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder,
-    private githubService: GitHubService,
     private darkModeService: DarkModeService){
       this.darkModeService.darkMode$.subscribe((isDarkMode) => {
         this.isDarkMode = isDarkMode;
@@ -46,6 +45,6 @@ export class FilterFormComponent implements OnInit{
   }
 
   searchIssues() {
-
+    this.filters.emit(this.filterForm.value);
   }
 }

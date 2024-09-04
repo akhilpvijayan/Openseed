@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '~flag-icon-css/css/flag-icons.min.css';
+
+
 .dark-mode{
     background-color: rgb(2, 5, 21);
     color: white;
