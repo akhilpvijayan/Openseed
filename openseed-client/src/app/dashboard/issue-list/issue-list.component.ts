@@ -33,16 +33,7 @@ export class IssueListComponent implements OnInit{
   isInitialLoad: boolean = true;
   hasNextPage: boolean = true;
   endCursor: string | null = null;
-  params: FilterParams = {
-    language: 'C#',
-    isAssigned: false,
-    hasPullRequests: true,
-    minStars: 10,
-    maxStars: 1000,
-    minForks: 0,
-    cursor: '',
-    category: 'web development',
-  };
+  params: any;
   constructor(private githubService: GitHubService,
     private darkModeService: DarkModeService) {
     this.darkModeService.darkMode$.subscribe((isDarkMode) => {
