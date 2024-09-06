@@ -2,6 +2,7 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Component, HostListener, Input, OnInit, SimpleChanges } from '@angular/core';
 import { GitHubService } from 'src/app/services/github.service';
 import { FilterParams } from 'src/app/interface/filter-params';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 
 @Component({
   selector: 'app-issue-list',
@@ -35,7 +36,8 @@ export class IssueListComponent implements OnInit{
   endCursor: string | null = null;
   params: any;
   constructor(private githubService: GitHubService,
-    private darkModeService: DarkModeService) {
+    private darkModeService: DarkModeService,
+    private bookmarkService: BookmarkService) {
     this.darkModeService.darkMode$.subscribe((isDarkMode) => {
       this.isDarkMode = isDarkMode;
     });
@@ -58,8 +60,12 @@ export class IssueListComponent implements OnInit{
     this.githubService.fetchGitHubIssues(this.params).subscribe(
       data => {
         this.issues = this.issues.concat(data.issues);
-        this.hasNextPage = data.hasNextPage;
+        this.hasNextPage = data.issues.length > 0 ? data.hasNextPage : false;
         this.params.cursor = this.endCursor = data.endCursor;
+        if(this.issues.length < 20 && this.hasNextPage){
+          this.isLoading = false;
+          this.loadIssues();
+        }
         this.isLoading = false;
         this.isInitialLoad = false;
         this.isLoadMore = false;
@@ -86,7 +92,12 @@ export class IssueListComponent implements OnInit{
       ...this.params,
       ...this.filter
     };    
-    this.loadIssues();
+    if(this.params.isOnlyBookmarks){
+      this.loadBookmarks();
+    }
+    else{
+      this.loadIssues();
+    }
   }
 
   @HostListener('scroll', ['$event.target'])
@@ -98,5 +109,20 @@ export class IssueListComponent implements OnInit{
       this.loadIssues();
     }
   }
+
+  toggleBookmark(issue: any) {
+    if (this.isBookmarked(issue)) {
+      this.bookmarkService.removeBookmark(issue);
+    } else {
+      this.bookmarkService.addBookmark(issue);
+    }
+  }
   
+  isBookmarked(issue: any): boolean {
+    return this.bookmarkService.isBookmarked(issue);
+  }
+
+  loadBookmarks() {
+    this.issues = this.bookmarkService.getBookmarks(this.params);
+  }
 }

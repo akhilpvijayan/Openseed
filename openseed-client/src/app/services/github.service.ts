@@ -11,6 +11,10 @@ import { environment } from '../environment';
 })
 export class GitHubService {
   private backendUrl = environment.server;
+  minStars = 0;
+  maxStars= 0;
+  minForks = 0;
+  maxForks = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -75,11 +79,6 @@ export class GitHubService {
       queryString += ` ${languageQuery}`;
     }
 
-    if (params.isAssigned) {
-      queryString += " assigned:*";
-    } else {
-      queryString += " no:assignee";
-    }
     if (params.hasPullRequests) {
       queryString += " linked:pr";
     } else {
@@ -128,9 +127,9 @@ export class GitHubService {
     }
 
     // // Filter by status (e.g., open, closed)
-    if (params.status) {
-      queryString += ` is:${params.status}`;
-    }
+    // if (params.status) {
+    //   queryString += ` is:${params.status}`;
+    // }
 
     // // Filter by creation date before a certain date
     // if (params.createdBefore) {
@@ -141,33 +140,12 @@ export class GitHubService {
     // if (params.createdAfter) {
     //   queryString += ` created:>${params.createdAfter}`;
     // }
-
-    // // Filter by fork count
-    // if (params.minForks || params.maxForks) {
-    //   if (params.minForks) {
-    //     queryString += ` forks:>=${params.minForks}`
-    //   }
-    //   if (params.maxForks) {
-    //       queryString += ` forks:<=${params.maxForks}`;
-    //   }
-    // }
     
     // // Filter by title
     if (params.title) {
       queryString += ` ${params.title} in:title`;
     }
 
-    // // Filter by body
-    if (params.body) {
-      queryString += ` ${params.body} in:body`;
-    }
-
-    // // Filter by project 
-    // if (params.project) {
-    //   queryString += ` project:${params.project}`;
-    // }
-
-    queryString += ` stars:${params.minStars}..${params.maxStars}`
     queryString += " sort:created-desc"; // Sorting
 
     const variables = {
@@ -175,10 +153,22 @@ export class GitHubService {
       cursor: params.cursor,
     };
 
+    this.minStars = params.minStars ?? 0;
+    this.maxStars= params.maxStars ?? 100000;
+    this.minForks = params.minForks ?? 0;
+    this.maxForks = params.maxForks ?? 100000;
+
     return this.http.post<any>(this.backendUrl, { query, variables })
       .pipe(
         map(response => ({
-          issues: response.data.search.nodes.map((issue: any) => ({
+          issues: response.data.search.nodes
+          .filter((issue: any) => {
+            const hasLicense = Boolean(issue.repository.licenseInfo);
+            const stars = issue.repository.stargazerCount;
+            const forks = issue.repository.forkCount;
+            return stars >= this.minStars && stars <= this.maxStars && forks >= this.minForks && forks <= this.maxForks && hasLicense;
+          }).
+          map((issue: any) => ({
             id: issue.url,
             title: issue.title,
             html_url: issue.url,

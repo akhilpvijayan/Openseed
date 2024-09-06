@@ -11,13 +11,14 @@
     "LABEL": "Etikett",
     "CATEGORY": "Kategorie",
     "BODY": "Inhalt",
-    "PROJECT": "Projekt",
+    "REPOSITORY": "Repository",
     "TITLE": "Titel",
     "MIN_STARS": "Minimale Sterne",
     "MAX_STARS": "Maximale Sterne",
     "CREATED_BEFORE": "Erstellt Vor",
     "CREATED_AFTER": "Erstellt Nach",
     "MIN_FORKS": "Minimale Forks",
-    "MAX_FORKS": "Maximale Forks"
+    "MAX_FORKS": "Maximale Forks",
+    "BOOKMARKS_ONLY": "Nur Lesezeichen"
   }
   

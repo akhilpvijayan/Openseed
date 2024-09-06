@@ -3,18 +3,17 @@ export interface FilterParams {
     isAssigned?: boolean;
     hasPullRequests?: boolean;
     searchQuery?: string;
-    minStars?: number;
-    maxStars?: number;
+    minStars: number;
+    maxStars: number;
     cursor?: string;
     framework?: string;
     label?: string;
     category?: string;
-    status?: string;
     createdBefore?: Date;
     createdAfter?: Date;
-    minForks?: number;
-    maxForks?: number;
+    minForks: number;
+    maxForks: number;
     title?: string;
-    body?: string;
-    project?: string;
+    repository?: string;
+    isOnlyBookmarks?: boolean;
 }

@@ -29,18 +29,17 @@ export class FilterFormComponent implements OnInit{
     this.filterForm = this.formBuilder.group({
       language: [''],
       framework: [''],
-      status: [''],
       label: [''],
       category: [''],
       title: [''],
-      body: [''],
-      project: [''],
+      repository: [''],
       minStars: [0],
       maxStars: [10000],
       createdBefore: [''],
       createdAfter: [''],
       minForks: [0],
-      maxForks: [10000]
+      maxForks: [10000],
+      isOnlyBookmarks: [false]
     });
   }
 

@@ -11,13 +11,14 @@
     "LABEL": "लेबल",
     "CATEGORY": "श्रेणी",
     "BODY": "विवरण",
-    "PROJECT": "प्रोजेक्ट",
+    "REPOSITORY": "भंडार",
     "TITLE": "शीर्षक",
     "MIN_STARS": "न्यूनतम सितारे",
     "MAX_STARS": "अधिकतम सितारे",
     "CREATED_BEFORE": "निर्मित पहले",
     "CREATED_AFTER": "निर्मित बाद",
     "MIN_FORKS": "न्यूनतम कांटे",
-    "MAX_FORKS": "अधिकतम कांटे"
+    "MAX_FORKS": "अधिकतम कांटे",
+    "BOOKMARKS_ONLY": "केवल बुकमार्क"
   }
   

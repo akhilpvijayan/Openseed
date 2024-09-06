@@ -14,10 +14,16 @@
     
     <div class="navbar-center">Open<span class="logo-half">Seed</span></div>
     <div class="navbar-icon">
-        <a class="github-button" href="https://github.com/akhilpvijayan/openseed" target="_blank"
+        <!-- <a class="github-button" href="https://github.com/akhilpvijayan/openseed" target="_blank"
             data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star"
-            data-size="large" aria-label="Star openseed on GitHub">Star</a>&nbsp;
-        <i class="fa-solid fa-sun dark" (click)="toggleDarkMode()" *ngIf="isDarkMode"></i>
-        <i class="fa-solid fa-moon dark" (click)="toggleDarkMode()" *ngIf="!isDarkMode"></i>&nbsp;
+            data-size="large" aria-label="Star openseed on GitHub">Star</a>&nbsp; -->
+            <span>
+                <div class="checkbox-wrapper-54">
+                  <label class="switch">
+                    <input type="checkbox" [ngModel]="isDarkMode" (change)="toggleDarkMode()">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </span>
     </div>
 </nav>

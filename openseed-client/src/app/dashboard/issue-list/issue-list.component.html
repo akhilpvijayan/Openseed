@@ -17,6 +17,8 @@
                             {{ issue?.created_at | date }}</i>&nbsp;
                         <span [ngClass]="{ 'dark-mode': isDarkMode }" *ngIf="issue?.status">
                             Status: {{ issue?.status }}</span>
+                        <span class="favourites-logo" *ngIf="!isBookmarked(issue)"><i class="fa-regular fa-star" (click)="toggleBookmark(issue)"></i></span>
+                        <span class="favourites-logo" *ngIf="isBookmarked(issue)"><i class="fa-solid fa-star" (click)="toggleBookmark(issue)"></i></span>
                     </span>
                 </div>
             </li>

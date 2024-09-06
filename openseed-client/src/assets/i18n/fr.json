@@ -11,13 +11,14 @@
     "LABEL": "Étiquette",
     "CATEGORY": "Catégorie",
     "BODY": "Corps",
-    "PROJECT": "Projet",
+    "REPOSITORY": "Référentiel",
     "TITLE": "Titre",
     "MIN_STARS": "Étoiles Min",
     "MAX_STARS": "Étoiles Max",
     "CREATED_BEFORE": "Créé avant",
     "CREATED_AFTER": "Créé après",
     "MIN_FORKS": "Fourchettes Min",
-    "MAX_FORKS": "Fourchettes Max"
+    "MAX_FORKS": "Fourchettes Max",
+    "BOOKMARKS_ONLY": "Signets uniquement"
   }
   
