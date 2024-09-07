@@ -174,7 +174,7 @@ export class GitHubService {
             html_url: issue.url,
             created_at: issue.createdAt,
             repository_url: issue.repository.url,
-            repository_name: issue.repository.nameWithOwner,
+            repository_name: issue?.repository?.nameWithOwner?.split('/')[1] ?? null,
             license: issue.repository.licenseInfo,
             stars_count: issue.repository.stargazerCount,
             fork_count: issue.repository.forkCount,

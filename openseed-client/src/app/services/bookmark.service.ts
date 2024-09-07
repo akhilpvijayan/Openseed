@@ -48,8 +48,8 @@ export class BookmarkService {
           (filter.category !== "" ? bookmark.category === filter.category : true) &&
           (filter.createdBefore !== "" ? new Date(bookmark.created_at) <= filter.createdBefore : true) &&
           (filter.createdAfter !== "" ? new Date(bookmark.created_at) >= filter.createdAfter : true) &&
-          (filter.title !== "" ? bookmark.title.includes(filter.title) : true) 
-          // (repository ? bookmark.repository === repository : true)
+          (filter.title !== "" ? bookmark.title.includes(filter.title) : true) &&
+          (filter.repository ? bookmark.repository_name === filter.repository : true)
         );
       });
     }

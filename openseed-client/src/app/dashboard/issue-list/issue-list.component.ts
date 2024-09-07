@@ -105,11 +105,13 @@ export class IssueListComponent implements OnInit{
 
   @HostListener('scroll', ['$event.target'])
   onContainerScroll(container: any) {
-    const pos = container.scrollTop + container.offsetHeight;
-    const max = container.scrollHeight;
-  
-    if (pos > max - 100) {
-      this.loadIssues();
+    if(!this.params.isOnlyBookmarks){
+      const pos = container.scrollTop + container.offsetHeight;
+      const max = container.scrollHeight;
+    
+      if (pos > max - 100) {
+        this.loadIssues();
+      }
     }
   }
 
