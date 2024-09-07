@@ -1,9 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
 
 .search-container {
-    margin-top: 20px;
-    height: 100%;
+    max-height: 100%; /* Adjust the height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
+
+/* For WebKit-based browsers (Chrome, Safari, Edge) */
+.search-container::-webkit-scrollbar {
+    width: 4px; /* Thinner scrollbar */
+  }
+  
+  .search-container::-webkit-scrollbar-track {
+    background: #f1f1f100; /* Background of the scrollbar track */
+  }
+  
+  .isearch-container::-webkit-scrollbar-thumb {
+    background-color: #5dc930; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+  }
+  
+  .search-container::-webkit-scrollbar-thumb:hover {
+    background-color: #5dc930; /* Darker color when hovered */
+  }
+  
+  /* For Firefox */
+  .search-container {
+    scrollbar-width: thin; /* Makes scrollbar thinner */
+    scrollbar-color: #5dc930 #f1f1f100; /* Thumb and track colors */
+  }
 
 ul {
     list-style-type: none;

@@ -19,6 +19,7 @@ export class IssueListComponent implements OnInit{
     this.isInitialLoad = true;
     this.isLoading = false;
     this.hasNextPage = true;
+  
     this.setFilterValues();
   }
 
@@ -35,6 +36,7 @@ export class IssueListComponent implements OnInit{
   hasNextPage: boolean = true;
   endCursor: string | null = null;
   params: any;
+  isEmptyBookmarks: boolean = false;
   constructor(private githubService: GitHubService,
     private darkModeService: DarkModeService,
     private bookmarkService: BookmarkService) {
@@ -51,6 +53,7 @@ export class IssueListComponent implements OnInit{
     if (this.isLoading || !this.hasNextPage) {
       return;
     }
+    this.isEmptyBookmarks = false;
     this.isLoading = true;
 
     if(!this.isInitialLoad){
@@ -124,5 +127,8 @@ export class IssueListComponent implements OnInit{
 
   loadBookmarks() {
     this.issues = this.bookmarkService.getBookmarks(this.params);
+    if(this.issues.length === 0){
+      this.isEmptyBookmarks = true;
+    }
   }
 }

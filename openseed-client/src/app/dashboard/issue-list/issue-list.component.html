@@ -31,4 +31,7 @@
       <div *ngIf="!hasNextPage && !isLoading" class="load">
         <p class="issues-end">No more issues to load.</p>
       </div>
+      <div *ngIf="isEmptyBookmarks" class="load">
+        <p class="issues-end">No issues in bookmark.</p>
+      </div>
 </div>

@@ -33,40 +33,29 @@ export class BookmarkService {
   getBookmarks(filter: any = {}): any[] {
     const bookmarks = localStorage.getItem(this.localStorageKey);
     const parsedBookmarks = bookmarks ? JSON.parse(bookmarks) : [];
-  
-    // Destructure the filter object with default values
-    const {
-      language,
-      minStars = 0,    // Default minimum stars to 0 if not provided
-      maxStars = Infinity, // Default maximum stars to Infinity if not provided
-      framework,
-      label,
-      category,
-      createdBefore,
-      createdAfter,
-      minForks = 0,    // Default minimum forks to 0 if not provided
-      maxForks = Infinity, // Default maximum forks to Infinity if not provided
-      title,
-      repository
-    } = filter;
-  
-    return parsedBookmarks.filter((bookmark: any) => {
-      // Apply the filters to each bookmark
-      return (
-        (language ? bookmark.language === language : true) &&
-        (bookmark.stars >= minStars) &&
-        (bookmark.stars <= maxStars) &&
-        (bookmark.forks >= minForks) &&
-        (bookmark.forks <= maxForks) &&
-        (framework ? bookmark.framework === framework : true) &&
-        (label ? bookmark.labels.includes(label) : true) &&
-        (category ? bookmark.category === category : true) &&
-        (createdBefore ? new Date(bookmark.createdAt) <= createdBefore : true) &&
-        (createdAfter ? new Date(bookmark.createdAt) >= createdAfter : true) &&
-        (title ? bookmark.title.includes(title) : true) 
-        // (repository ? bookmark.repository === repository : true)
-      );
-    });
+
+    if(filter.minStars != null){
+      return parsedBookmarks.filter((bookmark: any) => {
+        // Apply the filters to each bookmark
+        return (
+          (filter.language !== undefined && filter.language !== "" ? bookmark.language === filter.language : true) &&
+          (filter.minStars ? bookmark.stars_count >= filter.minStars : true) &&
+          (filter.maxStars ? bookmark.stars_count <= filter.maxStars : true) &&
+          (filter.minForks ? bookmark.fork_count >= filter.minForks : true) &&
+          (filter.maxForks ? bookmark.fork_count <= filter.maxForks : true) &&
+          (filter.framework !== "" ? bookmark.framework === filter.framework : true) &&
+          (filter.label !== "" ? bookmark.labels.includes(filter.label) : true) &&
+          (filter.category !== "" ? bookmark.category === filter.category : true) &&
+          (filter.createdBefore !== "" ? new Date(bookmark.created_at) <= filter.createdBefore : true) &&
+          (filter.createdAfter !== "" ? new Date(bookmark.created_at) >= filter.createdAfter : true) &&
+          (filter.title !== "" ? bookmark.title.includes(filter.title) : true) 
+          // (repository ? bookmark.repository === repository : true)
+        );
+      });
+    }
+    else{
+      return parsedBookmarks;
+    }
   }
   
 
