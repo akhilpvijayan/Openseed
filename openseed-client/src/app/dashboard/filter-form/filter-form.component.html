@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{ 'dark-mode': isDarkMode }">
   <div class="title">
     <i class="fa-solid fa-filter"></i> {{ 'FILTER' | translate }}
   </div>
@@ -8,16 +8,17 @@
         <div class="input-box">
           <span class="details">{{ 'LANGUAGE' | translate }}</span>
           <input type="text" formControlName="language" [placeholder]="'eg: C#, Typescript'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <!-- <small class="instruction">seperate by commas eg: C#,Javascript</small> -->
         </div>
         <div class="input-box">
-          <span class="details">{{ 'FRAMEWORK' | translate }}</span>
-          <input type="text" formControlName="framework" [placeholder]="'eg: Reactjs, Angular'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <span class="details">{{ 'OWNER' | translate }}</span>
+          <input type="text" formControlName="owner" [placeholder]="'Owner Name'" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
       </div>
       <div class="filter-details">
         <div class="input-box">
           <span class="details">{{ 'LABEL' | translate }}</span>
-          <input type="text" formControlName="label" [placeholder]="'eg: bug'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="label" [placeholder]="'eg: bug, enhancement'" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
         <div class="input-box">
           <span class="details">{{ 'CATEGORY' | translate }}</span>
@@ -46,12 +47,12 @@
       </div>
       <div class="filter-details">
         <div class="input-box">
-          <span class="details">{{ 'CREATED_BEFORE' | translate }}</span>
-          <input type="date" formControlName="createdBefore" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box">
           <span class="details">{{ 'CREATED_AFTER' | translate }}</span>
           <input type="date" formControlName="createdAfter" [ngClass]="{ 'dark-mode': isDarkMode }">
+        </div>
+        <div class="input-box">
+          <span class="details">{{ 'CREATED_BEFORE' | translate }}</span>
+          <input type="date" formControlName="createdBefore" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
       </div>
       <div class="filter-details">
@@ -76,8 +77,10 @@
               </span>
             </label>
             <span class="label-text">{{ 'BOOKMARKS_ONLY' | translate }}</span>
-          </div>
-                 
+          </div>  
+        </div>
+        <div class="input-box">
+          <button class="button-92" type="reset" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }"> Reset </button>
         </div>
       </div>
     </form>

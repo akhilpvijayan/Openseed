@@ -4,7 +4,7 @@
         <ul>
             <li *ngFor="let issue of issues">
                 <div class="content">
-                    <a [href]="issue?.html_url" target="_blank" [ngClass]="{ 'dark-mode': isDarkMode }"><b>{{
+                    <a [href]="issue?.html_url" target="_blank" class="title" [ngClass]="{ 'dark-mode': isDarkMode }"><b>{{
                             issue?.title }}</b></a>
                     <p>{{ issue?.body }}</p>
                     <span class="repo-details"><i class="user fa-regular fa-user"></i>
@@ -15,10 +15,14 @@
                         {{ issue?.language }}&nbsp;
                         <i class="fa-solid fa-calendar-days">
                             {{ issue?.created_at | date }}</i>&nbsp;
-                        <span [ngClass]="{ 'dark-mode': isDarkMode }" *ngIf="issue?.status">
-                            Status: {{ issue?.status }}</span>
+                        <!-- <span [ngClass]="{ 'dark-mode': isDarkMode }" *ngIf="issue?.status">
+                            Status: {{ issue?.status }}</span> -->
                         <span class="favourites-logo" *ngIf="!isBookmarked(issue)"><i class="fa-regular fa-star" (click)="toggleBookmark(issue)"></i></span>
                         <span class="favourites-logo" *ngIf="isBookmarked(issue)"><i class="fa-solid fa-star" (click)="toggleBookmark(issue)"></i></span>
+                    </span>
+                    <span *ngFor="let label of issue.labels">
+                        <span class="tag"><span class="tag-text">{{label}}</span>
+                        </span>
                     </span>
                 </div>
             </li>

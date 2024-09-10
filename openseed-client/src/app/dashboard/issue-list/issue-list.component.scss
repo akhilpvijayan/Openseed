@@ -138,3 +138,28 @@ li {
         font-size: 15px;
     }
 }
+
+.tag{
+    display: inline-block;
+    white-space: nowrap;
+    margin-right: 4px;
+    padding: 2px 4px;
+    border-radius: 5px;
+    border: 1px solid;
+    opacity: 0.8;
+
+    .tag-text{
+        padding-left: 5px;
+        padding-right: 5px;
+        word-break: keep-all;
+    }
+}
+
+@media(max-width: 854px) {
+    .content{
+        a{
+            font-size: 16px !important;
+            font-weight: 400;
+        }
+    }
+}

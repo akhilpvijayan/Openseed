@@ -6,7 +6,7 @@ export interface FilterParams {
     minStars: number;
     maxStars: number;
     cursor?: string;
-    framework?: string;
+    owner?: string;
     label?: string;
     category?: string;
     createdBefore?: Date;

@@ -72,11 +72,18 @@ export class GitHubService {
       }
     `;
 
-    let queryString = 'is:open is:issue label:"good first issue" archived:false';
+    let queryString = 'is:open is:issue archived:false label:"good first issue"';
+
+    //Filter by label
+    if (params.label) {
+      const labels = params.label.split(",").map(label => `"${label.trim()}"`);
+      queryString += ` label:${labels.join(",")}`;
+    }
+
     if (params.language) {
-      const languages = params.language.split(" ");
-      const languageQuery = languages.map((lang: any) => `language:${lang}`).join(" ");
-      queryString += ` ${languageQuery}`;
+      const languages = params.language.split(' ')
+      const languageQuery = languages.map(lang => `language:${lang}`).join(' ')
+      queryString += ` ${languageQuery}`
     }
 
     if (params.hasPullRequests) {
@@ -86,64 +93,30 @@ export class GitHubService {
     }
 
     // Filter by framework
-    if (params.framework) {
-      const frameworks = params.framework.split(" ");
-      const frameworkQuery = frameworks.map(framework => `framework:${framework}`).join(" ");
-      queryString += ` ${frameworkQuery}`;
-    }
-
-    //Filter by label
-    if (params.label) {
-      const labels = params.label.split(" ");
-      const labelQuery = labels.map(label => `label:"${label}"`).join(" ");
-      queryString += ` ${labelQuery}`;
-    }
-
-    // // Filter by category
-    if (params.category && params.category !== "all") {
-      switch (params.category) {
-        case "web-dev":
-          queryString += " topic:web"
-          break
-        case "mobile-dev":
-          queryString += " topic:mobile"
-          break
-        case "data-science":
-          queryString += " topic:data-science"
-          break
-        case "machine-learning":
-          queryString += " topic:machine-learning"
-          break
-        case "devops":
-          queryString += " topic:devops"
-          break
-        case "cybersecurity":
-          queryString += " topic:security"
-          break
-        case "documentation":
-          queryString += " topic:documentation"
-          break
-      }
-    }
+    // if (params.framework) {
+    //   const frameworks = params.framework.split(" ");
+    //   const frameworkQuery = frameworks.map(framework => `framework:${framework}`).join(" ");
+    //   queryString += ` ${frameworkQuery}`;
+    // }
 
     // // Filter by status (e.g., open, closed)
     // if (params.status) {
     //   queryString += ` is:${params.status}`;
     // }
 
-    // // Filter by creation date before a certain date
-    // if (params.createdBefore) {
-    //   queryString += ` created:<${params.createdBefore}`;
-    // }
-
     // // Filter by creation date after a certain date
-    // if (params.createdAfter) {
-    //   queryString += ` created:>${params.createdAfter}`;
-    // }
+    if (params.createdAfter) {
+      queryString += ` created:>=${params.createdAfter}`;
+    }
+
+    // // Filter by creation date before a certain date
+    if (params.createdBefore) {
+      queryString += ` created:<=${params.createdBefore}`;
+    }
     
     // // Filter by title
     if (params.title) {
-      queryString += ` ${params.title} in:title`;
+      queryString += ` ${params.title} in:name`;
     }
 
     queryString += " sort:created-desc"; // Sorting
@@ -174,7 +147,7 @@ export class GitHubService {
             html_url: issue.url,
             created_at: issue.createdAt,
             repository_url: issue.repository.url,
-            repository_name: issue?.repository?.nameWithOwner?.split('/')[1] ?? null,
+            repository_name: issue?.repository?.nameWithOwner,
             license: issue.repository.licenseInfo,
             stars_count: issue.repository.stargazerCount,
             fork_count: issue.repository.forkCount,
@@ -196,4 +169,189 @@ export class GitHubService {
         })
       );
   }
+
+  fetchGitHubIssuesByCategory(params: FilterParams): Observable<{
+    issues: Issue[]
+    hasNextPage: boolean
+    endCursor: string
+  }> {
+    
+    const query = `query($queryString: String!, $cursor: String) {
+        search(query: $queryString, type: REPOSITORY, first: 10, after: $cursor) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ... on Repository {
+              nameWithOwner
+              url
+              stargazerCount
+              forkCount
+              licenseInfo{
+                name   
+              }
+              primaryLanguage {
+                name
+              }
+              issues(labels: ["good first issue"], states: OPEN, first: 20, orderBy: {field: CREATED_AT, direction: DESC}) {
+                nodes {
+                  title
+                  url
+                  createdAt
+                  assignees(first: 1) {
+                    totalCount
+                  }
+                  labels(first: 10) {
+                    nodes {
+                      name
+                    }
+                  }
+                  comments {
+                    totalCount
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`
+  
+    let queryString = 'is:public archived:false'
+    if (params.language) {
+      const languages = params.language.split(' ')
+      const languageQuery = languages.map(lang => `language:${lang}`).join(' ')
+      queryString += ` ${languageQuery}`
+    }
+
+    if (params.searchQuery) {
+      queryString += ` ${params.title} in:name`
+    }
+  
+    if (params.category && params.category !== 'all') {
+      switch (params.category) {
+        case 'web-dev':
+          queryString += ' topic:web'
+          break
+        case 'mobile-dev':
+          queryString += ' topic:mobile'
+          break
+        case 'data-science':
+          queryString += ' topic:data-science'
+          break
+        case 'machine-learning':
+          queryString += ' topic:machine-learning'
+          break
+        case 'devops':
+          queryString += ' topic:devops'
+          break
+        case 'cybersecurity':
+          queryString += ' topic:security'
+          break
+        case 'documentation':
+          queryString += ' topic:documentation'
+          break
+      }
+    }
+
+    if(params.repository){
+      queryString += ` repo:${params.repository}`
+    }
+
+    if(params.owner){
+      queryString += ` user:${params.owner}`
+    }
+
+    if (params.title) {
+      queryString += ` ${params.title} in:name`;
+    }
+
+    const variables = {
+      queryString,
+      cursor: params.cursor,
+    }
+
+    this.minStars = params.minStars ?? 0;
+    this.maxStars= params.maxStars ?? 100000;
+    this.minForks = params.minForks ?? 0;
+    this.maxForks = params.maxForks ?? 100000;
+  
+    return this.http.post<any>(this.backendUrl, { query, variables })
+    .pipe(
+      map(response => {
+        const repositories = response.data.search.nodes;
+        const filteredRepositories = repositories.filter((repo: any) => {
+          const hasLicense = Boolean(repo.licenseInfo);
+          const stars = repo.stargazerCount;
+          const forks = repo.forkCount;
+          const repoName = repo?.nameWithOwner?.split('/')[1] ?? null;
+          let isValidRepo = stars >= this.minStars && stars <= this.maxStars && forks >= this.minForks && hasLicense;
+          // if(params.repository){
+          //   isValidRepo = repoName === params.repository;
+          // }
+          return isValidRepo;
+        });
+  
+        const issues = filteredRepositories.flatMap((repo: any) =>
+          repo.issues.nodes.map((issue: any) => {
+            const issueDetails = {
+              id: issue.url,
+              title: issue.title,
+              html_url: issue.url,
+              created_at: issue.createdAt,
+              repository_url: repo.url,
+              repository_name: repo.nameWithOwner,
+              license: repo.licenseInfo?.name || null,
+              stars_count: repo.stargazerCount,
+              fork_count: repo.forkCount,
+              language: repo.primaryLanguage?.name || null,
+              is_assigned: issue.assignees.totalCount > 0,
+              labels: issue.labels.nodes.map((label: any) => label.name),
+              comments_count: issue.comments.totalCount,
+              has_pull_requests: issue.timelineItems?.totalCount > 0 || false,
+              pr_status: issue.timelineItems?.totalCount > 0 ? issue.timelineItems.nodes[0]?.source?.state || null : null,
+              status: issue.timelineItems?.nodes[0]?.source?.state || null,
+              owner_name: repo.nameWithOwner.split('/')[0] ?? null,
+            };
+            return issueDetails;
+          })
+          .filter((issue: any) => {
+            const issueDate = new Date(issue.created_at);
+            const endDate = params.createdBefore ? new Date(params.createdBefore) : null;
+            const startDate = params.createdAfter ? new Date(params.createdAfter) : null;
+            
+            // Date filtering logic
+            let isDateInRange = true;
+            if (startDate && endDate) {
+              isDateInRange = issueDate >= startDate && issueDate <= endDate;
+            } else if (startDate) {
+              isDateInRange = issueDate >= startDate;
+            } else if (endDate) {
+              isDateInRange = issueDate <= endDate;
+            }
+
+            let isTitleMatch = true;
+            if (params.title) {
+              const titleLowerCase = issue.title.toLowerCase();
+              const searchTitle = params.title.toLowerCase();
+              isTitleMatch = titleLowerCase.includes(searchTitle);
+            }
+
+            return isDateInRange && isTitleMatch;
+          })          
+        );
+  
+        return {
+          issues,
+          hasNextPage: response.data.search.pageInfo.hasNextPage,
+          endCursor: response.data.search.pageInfo.endCursor,
+        };
+      }),
+      catchError(error => {
+        console.error("Error fetching GitHub issues:", error);
+        return throwError(error);
+      })
+    );
+      
+}
 }

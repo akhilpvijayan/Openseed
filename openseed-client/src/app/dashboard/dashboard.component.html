@@ -1,4 +1,13 @@
 <app-nav-bar></app-nav-bar>
+<div class="filter-bar">
+    <i class="fa-solid fa-filter filter" (click)="openFilter()"></i> 
+</div>
+<!-- Overlay and Popup for Filter Component -->
+<div class="overlay" *ngIf="isFilterPopUpOpen" (click)="closeFilter()"></div>
+<div class="filter-component" *ngIf="isFilterPopUpOpen">
+  <span class="close-btn" (click)="closeFilter()">&times;</span>
+  <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
+</div>
 <div id="boxes">
     <div id="leftbox">
         <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>

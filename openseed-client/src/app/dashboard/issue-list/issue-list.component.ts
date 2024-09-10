@@ -46,7 +46,7 @@ export class IssueListComponent implements OnInit{
    }
 
    ngOnInit(): void {
-    this.loadIssues();
+    this.setFilterValues();
   }
 
   loadIssues() {
@@ -60,6 +60,15 @@ export class IssueListComponent implements OnInit{
       this.isLoadMore = true;
     }
 
+    if(this.params.category || this.params.repository ||  this.params.owner){
+      this.fetchIssuesByCategory();
+    }
+    else{
+      this.fetchIssues();
+    }
+  }
+
+  fetchIssues(){
     this.githubService.fetchGitHubIssues(this.params).subscribe(
       data => {
         this.issues = this.issues.concat(data.issues);
@@ -67,7 +76,27 @@ export class IssueListComponent implements OnInit{
         this.params.cursor = this.endCursor = data.endCursor;
         if(this.issues.length < 20 && this.hasNextPage){
           this.isLoading = false;
-          this.loadIssues();
+          this.fetchIssues();
+        }
+        this.isLoading = false;
+        this.isInitialLoad = false;
+        this.isLoadMore = false;
+      },
+      error => {
+        console.error('Error fetching issues:', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  fetchIssuesByCategory(){
+    this.githubService.fetchGitHubIssuesByCategory(this.params).subscribe(
+      data => {
+        this.issues = this.issues.concat(data.issues);
+        this.hasNextPage = data.issues.length > 0 ? data.hasNextPage : false;
+        this.params.cursor = this.endCursor = data.endCursor;
+        if(this.issues.length < 20 && this.hasNextPage){
+          this.fetchIssuesByCategory();
         }
         this.isLoading = false;
         this.isInitialLoad = false;
@@ -94,7 +123,8 @@ export class IssueListComponent implements OnInit{
     this.params = {
       ...this.params,
       ...this.filter
-    };    
+    }; 
+    this.params.cursor = null;   
     if(this.params.isOnlyBookmarks){
       this.loadBookmarks();
     }
