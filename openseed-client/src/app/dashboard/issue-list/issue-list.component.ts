@@ -81,9 +81,11 @@ export class IssueListComponent implements OnInit{
           this.isInitialLoad = this.issues.length > 0 ? false : true;
           this.fetchIssues();
         }
-        this.isLoading = this.issues.length > 0 ? false : true;
-        this.isInitialLoad = false;
-        this.isLoadMore = false;
+        else{
+          this.isLoading = this.issues.length > 0 ? false : true;
+          this.isInitialLoad = false;
+          this.isLoadMore = false;
+        }
       },
       error => {
         console.error('Error fetching issues:', error);
@@ -103,9 +105,11 @@ export class IssueListComponent implements OnInit{
           this.isInitialLoad = this.issues.length > 0 ? false : true;
           this.fetchIssuesByCategory();
         }
-        this.isLoading = this.issues.length > 0 ? false : true;
-        this.isInitialLoad = false;
-        this.isLoadMore = false;
+        else{
+          this.isLoading = this.issues.length > 0 ? false : true;
+          this.isInitialLoad = false;
+          this.isLoadMore = false;
+        }
       },
       error => {
         console.error('Error fetching issues:', error);
