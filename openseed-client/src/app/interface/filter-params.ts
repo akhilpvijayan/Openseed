@@ -9,7 +9,7 @@ export interface FilterParams {
     owner?: string;
     label?: string;
     category?: string;
-    createdBefore?: Date;
+    license?: string;
     createdAfter?: Date;
     minForks: number;
     maxForks: number;

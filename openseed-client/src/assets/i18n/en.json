@@ -15,10 +15,11 @@
     "TITLE": "Title",
     "MIN_STARS": "Min Stars",
     "MAX_STARS": "Max Stars",
-    "CREATED_BEFORE": "Created Before",
+    "LICENSE": "License",
     "CREATED_AFTER": "Created After",
     "MIN_FORKS": "Min Forks",
     "MAX_FORKS": "Max Forks",
-    "BOOKMARKS_ONLY": "Bookmarks Only"
+    "BOOKMARKS_ONLY": "Bookmarks Only",
+    "RESET":"Reset"
   }
   

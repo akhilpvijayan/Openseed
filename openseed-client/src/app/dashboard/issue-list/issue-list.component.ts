@@ -1,5 +1,5 @@
 import { DarkModeService } from 'src/app/services/dark-mode.service';
-import { Component, HostListener, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { GitHubService } from 'src/app/services/github.service';
 import { FilterParams } from 'src/app/interface/filter-params';
 import { BookmarkService } from 'src/app/services/bookmark.service';
@@ -27,6 +27,8 @@ export class IssueListComponent implements OnInit{
     return this._filter;
   }
 
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  showScrollToTopButton: boolean = false;
   searchQuery = '';
   isDarkMode = localStorage.getItem('darkMode') === 'true';
   issues: any[] = [];
@@ -60,7 +62,7 @@ export class IssueListComponent implements OnInit{
       this.isLoadMore = true;
     }
 
-    if(this.params.category || this.params.repository ||  this.params.owner){
+    if((this.params.category && this.params.category !='all') || this.params.repository ||  this.params.owner){
       this.fetchIssuesByCategory();
     }
     else{
@@ -72,13 +74,14 @@ export class IssueListComponent implements OnInit{
     this.githubService.fetchGitHubIssues(this.params).subscribe(
       data => {
         this.issues = this.issues.concat(data.issues);
-        this.hasNextPage = data.issues.length > 0 ? data.hasNextPage : false;
+        this.hasNextPage = data.hasNextPage;
         this.params.cursor = this.endCursor = data.endCursor;
         if(this.issues.length < 20 && this.hasNextPage){
-          this.isLoading = false;
+          this.isLoadMore = this.issues.length > 0 ? true : false;
+          this.isInitialLoad = this.issues.length > 0 ? false : true;
           this.fetchIssues();
         }
-        this.isLoading = false;
+        this.isLoading = this.issues.length > 0 ? false : true;
         this.isInitialLoad = false;
         this.isLoadMore = false;
       },
@@ -93,12 +96,14 @@ export class IssueListComponent implements OnInit{
     this.githubService.fetchGitHubIssuesByCategory(this.params).subscribe(
       data => {
         this.issues = this.issues.concat(data.issues);
-        this.hasNextPage = data.issues.length > 0 ? data.hasNextPage : false;
+        this.hasNextPage = data.hasNextPage;
         this.params.cursor = this.endCursor = data.endCursor;
         if(this.issues.length < 20 && this.hasNextPage){
+          this.isLoadMore = this.issues.length > 0 ? true : false;
+          this.isInitialLoad = this.issues.length > 0 ? false : true;
           this.fetchIssuesByCategory();
         }
-        this.isLoading = false;
+        this.isLoading = this.issues.length > 0 ? false : true;
         this.isInitialLoad = false;
         this.isLoadMore = false;
       },
@@ -109,21 +114,20 @@ export class IssueListComponent implements OnInit{
     );
   }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + window.innerHeight;
-    const max = document.documentElement.scrollHeight;
-    if (pos > max - 100) {
-      // Near the bottom of the page
-      this.loadIssues();
-    }
-  }
-
   setFilterValues(){
-    this.params = {
-      ...this.params,
-      ...this.filter
-    }; 
+    const bookMarkFilter = this.bookmarkService.getFilterBookmarks();
+    if(bookMarkFilter){
+      this.params = {
+        ...this.params,
+        ...bookMarkFilter
+      }; 
+    }
+    else{
+      this.params = {
+        ...this.params,
+        ...this.filter
+      }; 
+    }
     this.params.cursor = null;   
     if(this.params.isOnlyBookmarks){
       this.loadBookmarks();
@@ -133,16 +137,20 @@ export class IssueListComponent implements OnInit{
     }
   }
 
-  @HostListener('scroll', ['$event.target'])
-  onContainerScroll(container: any) {
-    if(!this.params.isOnlyBookmarks){
-      const pos = container.scrollTop + container.offsetHeight;
-      const max = container.scrollHeight;
-    
-      if (pos > max - 100) {
-        this.loadIssues();
-      }
+  onContainerScroll(): void {
+    const container = this.scrollContainer.nativeElement;
+    const pos = container.scrollTop + container.clientHeight;
+    const max = container.scrollHeight;
+    this.showScrollToTopButton = container.scrollTop > 500;
+
+    if (pos > max - 100) {
+      this.loadIssues();
     }
+  }
+
+  scrollToTop(): void {
+    const container = this.scrollContainer.nativeElement;
+    container.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   toggleBookmark(issue: any) {

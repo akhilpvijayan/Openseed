@@ -19,6 +19,9 @@
     "CREATED_AFTER": "Creato Dopo",
     "MIN_FORKS": "Minimo Forks",
     "MAX_FORKS": "Massimo Forks",
-    "BOOKMARKS_ONLY": "Solo segnalibri"
+    "BOOKMARKS_ONLY": "Solo segnalibri",
+    "LICENSE": "Licenza",
+    "OWNER": "Proprietario",
+    "RESET":"Ripristina"
   }
   

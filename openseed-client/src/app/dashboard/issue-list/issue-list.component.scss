@@ -155,6 +155,38 @@ li {
     }
 }
 
+/* Base styles for the scroll-to-top button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f1f1f1ce;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .scroll-to-top:hover {
+    background-color: #717171;
+  }
+  
+  /* Dark mode styles */
+  .scroll-to-top.dark-mode {
+    background-color: #333333a0;
+    color: #fff;
+  }
+  
+  .scroll-to-top.dark-mode:hover {
+    background-color: #555;
+  }  
+
 @media(max-width: 854px) {
     .content{
         a{

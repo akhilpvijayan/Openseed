@@ -19,6 +19,9 @@
     "CREATED_AFTER": "निर्मित बाद",
     "MIN_FORKS": "न्यूनतम कांटे",
     "MAX_FORKS": "अधिकतम कांटे",
-    "BOOKMARKS_ONLY": "केवल बुकमार्क"
+    "BOOKMARKS_ONLY": "केवल बुकमार्क",
+    "LICENSE": "लाइसेंस",
+    "OWNER": "मालिक",
+    "RESET":"रीसेट"
   }
   

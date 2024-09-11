@@ -22,8 +22,12 @@
         </div>
         <div class="input-box">
           <span class="details">{{ 'CATEGORY' | translate }}</span>
-          <input type="text" formControlName="category" [placeholder]="'eg: open'" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
+          <select formControlName="category" [ngClass]="{ 'dark-mode': isDarkMode }" class="scrollable-dropdown">
+            <option *ngFor="let category of categories" [value]="category.value">
+              {{ category.label | translate }}
+            </option>
+          </select>
+        </div>        
       </div>
       <div class="filter-details">
         <div class="input-box">
@@ -51,9 +55,13 @@
           <input type="date" formControlName="createdAfter" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
         <div class="input-box">
-          <span class="details">{{ 'CREATED_BEFORE' | translate }}</span>
-          <input type="date" formControlName="createdBefore" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
+          <span class="details">{{ 'LICENSE' | translate }}</span>
+          <select formControlName="license" [ngClass]="{ 'dark-mode': isDarkMode }" class="scrollable-dropdown">
+            <option *ngFor="let license of licenses" [value]="license.value">
+              {{ license.label}}
+            </option>
+          </select>
+        </div>        
       </div>
       <div class="filter-details">
         <div class="input-box">
@@ -80,7 +88,7 @@
           </div>  
         </div>
         <div class="input-box">
-          <button class="button-92" type="reset" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }"> Reset </button>
+          <button class="button-92" type="reset" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }">{{ 'RESET' | translate }}</button>
         </div>
       </div>
     </form>

@@ -317,3 +317,16 @@ form .button input:hover {
   margin: none;
 }
 
+.scrollable-dropdown {
+  max-height: 150px; /* Adjust height as needed */
+  overflow-y: auto;
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.scrollable-dropdown option {
+  padding: 8px;
+  font-size: 14px;
+}

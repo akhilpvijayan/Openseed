@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FilterParams } from '../interface/filter-params';
@@ -110,8 +110,8 @@ export class GitHubService {
     }
 
     // // Filter by creation date before a certain date
-    if (params.createdBefore) {
-      queryString += ` created:<=${params.createdBefore}`;
+    if (params.license) {
+      queryString += ` license:"${params.license}"`;
     }
     
     // // Filter by title
@@ -227,31 +227,13 @@ export class GitHubService {
     if (params.searchQuery) {
       queryString += ` ${params.title} in:name`
     }
+
+    if (params.license && params.license !== 'all') {
+      queryString += ` license:"${params.license}"`;
+    }
   
     if (params.category && params.category !== 'all') {
-      switch (params.category) {
-        case 'web-dev':
-          queryString += ' topic:web'
-          break
-        case 'mobile-dev':
-          queryString += ' topic:mobile'
-          break
-        case 'data-science':
-          queryString += ' topic:data-science'
-          break
-        case 'machine-learning':
-          queryString += ' topic:machine-learning'
-          break
-        case 'devops':
-          queryString += ' topic:devops'
-          break
-        case 'cybersecurity':
-          queryString += ' topic:security'
-          break
-        case 'documentation':
-          queryString += ' topic:documentation'
-          break
-      }
+      queryString += ` topic:${params.category}`;
     }
 
     if(params.repository){
@@ -264,6 +246,10 @@ export class GitHubService {
 
     if (params.title) {
       queryString += ` ${params.title} in:name`;
+    }
+
+    if (params.maxStars) {
+      queryString += ` stars:<${params.maxStars}`;
     }
 
     const variables = {
@@ -285,7 +271,7 @@ export class GitHubService {
           const stars = repo.stargazerCount;
           const forks = repo.forkCount;
           const repoName = repo?.nameWithOwner?.split('/')[1] ?? null;
-          let isValidRepo = stars >= this.minStars && stars <= this.maxStars && forks >= this.minForks && hasLicense;
+          let isValidRepo = stars >= this.minStars && forks >= this.minForks && hasLicense;
           // if(params.repository){
           //   isValidRepo = repoName === params.repository;
           // }
@@ -317,17 +303,12 @@ export class GitHubService {
           })
           .filter((issue: any) => {
             const issueDate = new Date(issue.created_at);
-            const endDate = params.createdBefore ? new Date(params.createdBefore) : null;
             const startDate = params.createdAfter ? new Date(params.createdAfter) : null;
             
             // Date filtering logic
             let isDateInRange = true;
-            if (startDate && endDate) {
-              isDateInRange = issueDate >= startDate && issueDate <= endDate;
-            } else if (startDate) {
+            if (startDate) {
               isDateInRange = issueDate >= startDate;
-            } else if (endDate) {
-              isDateInRange = issueDate <= endDate;
             }
 
             let isTitleMatch = true;

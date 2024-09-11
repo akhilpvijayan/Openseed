@@ -6,6 +6,7 @@ import { FilterParams } from '../interface/filter-params';
 })
 export class BookmarkService {
   private localStorageKey = 'openseed-bookmarkedIssues';
+  private localtorageFilterKey = 'filterFormValues';
 
   constructor() { }
 
@@ -44,7 +45,6 @@ export class BookmarkService {
         (filter.owner && filter.owner !== "") ||
         (filter.label && filter.label !== "") ||
         (filter.category && filter.category !== "") ||
-        (filter.createdBefore && filter.createdBefore !== null && filter.createdBefore !== "") ||
         (filter.createdAfter && filter.createdAfter !== null && filter.createdAfter !== "") ||
         (filter.title && filter.title !== "") ||
         (filter.repository && filter.repository !== "");
@@ -128,9 +128,9 @@ export class BookmarkService {
         }
       }
 
-      // Check if the createdBefore filter is provided and matches
-      if (filter.createdBefore !== null && filter.createdBefore !== "") {
-        if (new Date(bookmark.created_at) > new Date(filter.createdBefore)) {
+      // Check if the license filter is provided and matches
+      if (filter.license !== null) {
+        if (new Date(bookmark.license) === filter.license) {
           return false;
         }
       }
@@ -165,5 +165,13 @@ export class BookmarkService {
   // Clear all bookmarks (optional)
   clearBookmarks() {
     localStorage.removeItem(this.localStorageKey);
+  }
+
+  getFilterBookmarks(filter: any = {}) {
+    const bookmarks = localStorage.getItem(this.localtorageFilterKey);
+    if(bookmarks){
+      return JSON.parse(bookmarks)
+    }
+    return false;
   }
 }

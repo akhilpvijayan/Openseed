@@ -1,5 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { categories } from 'src/app/interface/categories';
+import { licenses } from 'src/app/interface/licenses';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 @Component({
@@ -12,17 +15,18 @@ export class FilterFormComponent implements OnInit{
   isDarkMode = this.darkModeService.isDarkModeEnabled();
   searchQuery = '';
   issues: any;
-  savedFilterValues = localStorage.getItem('filterFormValues');
-  defaultValues = this.savedFilterValues ? JSON.parse(this.savedFilterValues) : {
+  categories = categories;
+  licenses = licenses;
+  defaultValues = this.bookMarkService.getFilterBookmarks() ? this.bookMarkService.getFilterBookmarks() : {
       language: '',
       owner: '',
       label: '',
-      category: '',
+      category: 'all',
       title: '',
       repository: '',
       minStars: 0,
       maxStars: 10000,
-      createdBefore: null,
+      license: 'all',
       createdAfter: null,
       minForks: 0,
       maxForks: 10000,
@@ -42,7 +46,8 @@ export class FilterFormComponent implements OnInit{
   @Output() filters = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder,
-    private darkModeService: DarkModeService){
+    private darkModeService: DarkModeService,
+  private bookMarkService: BookmarkService){
       this.darkModeService.darkMode$.subscribe((isDarkMode) => {
         this.isDarkMode = isDarkMode;
       });
@@ -50,7 +55,7 @@ export class FilterFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
-    this.searchIssues();
+    //this.searchIssues();
   }
 
   initForm(){
@@ -63,7 +68,7 @@ export class FilterFormComponent implements OnInit{
       repository: [this.defaultValues.repository],
       minStars: [this.defaultValues.minStars],
       maxStars: [this.defaultValues.maxStars],
-      createdBefore: [this.defaultValues.createdBefore],
+      license: [this.defaultValues.license],
       createdAfter: [this.defaultValues.createdAfter],
       minForks: [this.defaultValues.minForks],
       maxForks: [this.defaultValues.maxForks],

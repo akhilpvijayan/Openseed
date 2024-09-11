@@ -19,6 +19,9 @@
     "CREATED_AFTER": "Créé après",
     "MIN_FORKS": "Fourchettes Min",
     "MAX_FORKS": "Fourchettes Max",
-    "BOOKMARKS_ONLY": "Signets uniquement"
+    "BOOKMARKS_ONLY": "Signets uniquement",
+    "LICENSE": "Licence",
+    "OWNER": "Propriétaire",
+    "RESET":"Réinitialiser"
   }
   

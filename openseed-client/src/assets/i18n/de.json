@@ -4,6 +4,7 @@
     "ITALIAN": "Italienisch",
     "GERMAN": "Deutsch",
     "SPANISH": "Spanisch",
+    "FRENCh": "फ़्रेंच",
     "FILTER": "Filter",
     "LANGUAGE": "Sprache",
     "FRAMEWORK": "Framework",
@@ -19,6 +20,9 @@
     "CREATED_AFTER": "Erstellt Nach",
     "MIN_FORKS": "Minimale Forks",
     "MAX_FORKS": "Maximale Forks",
-    "BOOKMARKS_ONLY": "Nur Lesezeichen"
+    "BOOKMARKS_ONLY": "Nur Lesezeichen",
+    "LICENSE": "Lizenz",
+    "OWNER": "Eigentümer",
+    "RESET":"Zurücksetzen"
   }
   

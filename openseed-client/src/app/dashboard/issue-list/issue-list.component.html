@@ -1,5 +1,8 @@
-<div class="search-container" (scroll)="onContainerScroll($event.target)">
+<div #scrollContainer class="search-container" (scroll)="onContainerScroll()">
     <app-loader-skeleton *ngIf="isLoading && !isLoadMore && isInitialLoad"></app-loader-skeleton>
+    <button *ngIf="showScrollToTopButton" (click)="scrollToTop()" class="scroll-to-top" [ngClass]="{ 'dark-mode': isDarkMode }">
+        <i class="fa-solid fa-angles-up"></i>
+      </button>
     <div *ngIf="issues.length > 0">
         <ul>
             <li *ngFor="let issue of issues">
@@ -28,7 +31,7 @@
             </li>
         </ul>
     </div>
-    <div *ngIf="hasNextPage && !isInitialLoad" class="load" (click)="loadIssues()">
+    <div *ngIf="hasNextPage && !isInitialLoad && isLoadMore" class="load" (click)="loadIssues()">
         <button [ngClass]="{ 'dark-mode': isDarkMode }">
             <app-spin-loader *ngIf="isLoadMore"></app-spin-loader><span *ngIf="!isLoadMore">Load More..</span></button>
       </div>
