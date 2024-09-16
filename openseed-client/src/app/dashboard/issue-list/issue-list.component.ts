@@ -52,7 +52,7 @@ export class IssueListComponent implements OnInit{
   }
 
   loadIssues() {
-    if (this.isLoading || !this.hasNextPage) {
+    if (this.isLoading || !this.hasNextPage || this.params.isOnlyBookmarks) {
       return;
     }
     this.isEmptyBookmarks = false;
@@ -63,7 +63,7 @@ export class IssueListComponent implements OnInit{
     }
 
     if((this.params.category && this.params.category !='all') || this.params.repository ||  this.params.owner){
-      this.fetchIssuesByCategory();
+      this.fetchIssuesByMoreFilters();
     }
     else{
       this.fetchIssues();
@@ -94,8 +94,8 @@ export class IssueListComponent implements OnInit{
     );
   }
 
-  fetchIssuesByCategory(){
-    this.githubService.fetchGitHubIssuesByCategory(this.params).subscribe(
+  fetchIssuesByMoreFilters(){
+    this.githubService.fetchIssuesByMoreFilters(this.params).subscribe(
       data => {
         this.issues = this.issues.concat(data.issues);
         this.hasNextPage = data.hasNextPage;
@@ -103,7 +103,7 @@ export class IssueListComponent implements OnInit{
         if(this.issues.length < 20 && this.hasNextPage){
           this.isLoadMore = this.issues.length > 0 ? true : false;
           this.isInitialLoad = this.issues.length > 0 ? false : true;
-          this.fetchIssuesByCategory();
+          this.fetchIssuesByMoreFilters();
         }
         else{
           this.isLoading = this.issues.length > 0 ? false : true;

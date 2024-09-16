@@ -103,7 +103,7 @@ export class BookmarkService {
 
       // Check if the owner filter is provided and matches
       if (filter.owner !== "") {
-        if (bookmark.owner.toLowerCase() !== filter.owner.toLowerCase()) {
+        if (bookmark.owner_name.toLowerCase() !== filter.owner.toLowerCase()) {
           return false;
         }
       }
@@ -122,15 +122,15 @@ export class BookmarkService {
       }
 
       // Check if the category filter is provided and matches
-      if (filter.category !== "") {
-        if (bookmark.category.toLowerCase() !== filter.category.toLowerCase()) {
-          return false;
-        }
-      }
+      // if (filter.category !== "") {
+      //   if (bookmark.category.toLowerCase() !== filter.category.toLowerCase()) {
+      //     return false;
+      //   }
+      // }
 
       // Check if the license filter is provided and matches
       if (filter.license !== null) {
-        if (new Date(bookmark.license) === filter.license) {
+        if (bookmark.license.name === filter.license) {
           return false;
         }
       }

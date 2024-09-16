@@ -3,7 +3,7 @@
     <i class="fa-solid fa-filter"></i> {{ 'FILTER' | translate }}
   </div>
   <div class="content">
-    <form [formGroup]="filterForm" (ngSubmit)="searchIssues()">
+    <form [formGroup]="filterForm" (keydown.enter)="searchIssues()">
       <div class="filter-details">
         <div class="input-box">
           <span class="details">{{ 'LANGUAGE' | translate }}</span>
@@ -20,9 +20,9 @@
           <span class="details">{{ 'LABEL' | translate }}</span>
           <input type="text" formControlName="label" [placeholder]="'eg: bug, enhancement'" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
-        <div class="input-box">
+        <div class="input-box" >
           <span class="details">{{ 'CATEGORY' | translate }}</span>
-          <select formControlName="category" [ngClass]="{ 'dark-mode': isDarkMode }" class="scrollable-dropdown">
+          <select formControlName="category" [ngClass]="{ 'dark-mode': isDarkMode, 'disabled-select': filterForm.get('category')?.disabled }" class="scrollable-dropdown">
             <option *ngFor="let category of categories" [value]="category.value">
               {{ category.label | translate }}
             </option>
@@ -88,7 +88,7 @@
           </div>  
         </div>
         <div class="input-box">
-          <button class="button-92" type="reset" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }">{{ 'RESET' | translate }}</button>
+          <button class="button-92" type="button" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }">{{ 'RESET' | translate }}</button>
         </div>
       </div>
     </form>

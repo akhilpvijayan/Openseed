@@ -92,18 +92,6 @@ export class GitHubService {
       queryString += " -linked:pr";
     }
 
-    // Filter by framework
-    // if (params.framework) {
-    //   const frameworks = params.framework.split(" ");
-    //   const frameworkQuery = frameworks.map(framework => `framework:${framework}`).join(" ");
-    //   queryString += ` ${frameworkQuery}`;
-    // }
-
-    // // Filter by status (e.g., open, closed)
-    // if (params.status) {
-    //   queryString += ` is:${params.status}`;
-    // }
-
     // // Filter by creation date after a certain date
     if (params.createdAfter) {
       queryString += ` created:>=${params.createdAfter}`;
@@ -170,7 +158,7 @@ export class GitHubService {
       );
   }
 
-  fetchGitHubIssuesByCategory(params: FilterParams): Observable<{
+  fetchIssuesByMoreFilters(params: FilterParams): Observable<{
     issues: Issue[]
     hasNextPage: boolean
     endCursor: string
@@ -224,10 +212,6 @@ export class GitHubService {
       queryString += ` ${languageQuery}`
     }
 
-    if (params.searchQuery) {
-      queryString += ` ${params.title} in:name`
-    }
-
     if (params.license && params.license !== 'all') {
       queryString += ` license:"${params.license}"`;
     }
@@ -270,11 +254,7 @@ export class GitHubService {
           const hasLicense = Boolean(repo.licenseInfo);
           const stars = repo.stargazerCount;
           const forks = repo.forkCount;
-          const repoName = repo?.nameWithOwner?.split('/')[1] ?? null;
           let isValidRepo = stars >= this.minStars && forks >= this.minForks && hasLicense;
-          // if(params.repository){
-          //   isValidRepo = repoName === params.repository;
-          // }
           return isValidRepo;
         });
   

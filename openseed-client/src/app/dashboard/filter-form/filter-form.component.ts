@@ -17,21 +17,7 @@ export class FilterFormComponent implements OnInit{
   issues: any;
   categories = categories;
   licenses = licenses;
-  defaultValues = this.bookMarkService.getFilterBookmarks() ? this.bookMarkService.getFilterBookmarks() : {
-      language: '',
-      owner: '',
-      label: '',
-      category: 'all',
-      title: '',
-      repository: '',
-      minStars: 0,
-      maxStars: 10000,
-      license: 'all',
-      createdAfter: null,
-      minForks: 0,
-      maxForks: 10000,
-      isOnlyBookmarks: false
-    };
+  defaultValues = this.setDefaultValues();
   availableLanguages = [
     { name: 'C#' },
     { name: 'TypeScript' },
@@ -54,8 +40,12 @@ export class FilterFormComponent implements OnInit{
     }
 
   ngOnInit(): void {
+    this.setDefaultValues();
     this.initForm();
-    //this.searchIssues();
+
+    this.filterForm.get('isOnlyBookmarks')?.valueChanges.subscribe((isOnlyBookmarks) => {
+      this.toggleCategoryField(isOnlyBookmarks);
+    });
   }
 
   initForm(){
@@ -74,6 +64,25 @@ export class FilterFormComponent implements OnInit{
       maxForks: [this.defaultValues.maxForks],
       isOnlyBookmarks: [this.defaultValues.isOnlyBookmarks]
     });
+    this.toggleCategoryField(this.filterForm.value.isOnlyBookmarks);
+  }
+
+  setDefaultValues(): any{
+    return this.bookMarkService.getFilterBookmarks() ? this.bookMarkService.getFilterBookmarks() : {
+      language: '',
+      owner: '',
+      label: '',
+      category: 'all',
+      title: '',
+      repository: '',
+      minStars: 0,
+      maxStars: 10000,
+      license: 'all',
+      createdAfter: null,
+      minForks: 0,
+      maxForks: 10000,
+      isOnlyBookmarks: false
+    };
   }
 
   searchIssues() {
@@ -85,5 +94,18 @@ export class FilterFormComponent implements OnInit{
   resetFormToDefault(): void {
     localStorage.removeItem('filterFormValues');
     this.filterForm.reset(this.defaultValues);
+  }
+
+  toggleCategoryField(isOnlyBookmarks: boolean): void {
+    const categoryControl = this.filterForm.get('category');
+  
+    if (isOnlyBookmarks) {
+      categoryControl?.disable();
+    } else {
+      categoryControl?.enable();
+      this.filterForm.patchValue({
+        category: 'all'
+      });
+    }
   }
 }
