@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { StarRequestModalComponent } from './dashboard/star-request-modal/star-request-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,7 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     IssueListComponent,
     NavBarComponent,
     LoaderSkeletonComponent,
-    SpinLoaderComponent
+    SpinLoaderComponent,
+    StarRequestModalComponent
   ],
   imports: [
     BrowserModule,

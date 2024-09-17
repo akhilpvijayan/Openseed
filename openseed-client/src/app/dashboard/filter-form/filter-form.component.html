@@ -7,18 +7,18 @@
       <div class="filter-details">
         <div class="input-box">
           <span class="details">{{ 'LANGUAGE' | translate }}</span>
-          <input type="text" formControlName="language" [placeholder]="'eg: C#, Typescript'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="language" [placeholder]="( 'EXAMPLE' | translate ) + ': C#, Typescript'" [ngClass]="{ 'dark-mode': isDarkMode }" autofocus>
           <!-- <small class="instruction">seperate by commas eg: C#,Javascript</small> -->
         </div>
         <div class="input-box">
           <span class="details">{{ 'OWNER' | translate }}</span>
-          <input type="text" formControlName="owner" [placeholder]="'Owner Name'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="owner" [placeholder]="'OWNER_NAME' | translate" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
       </div>
       <div class="filter-details">
         <div class="input-box">
           <span class="details">{{ 'LABEL' | translate }}</span>
-          <input type="text" formControlName="label" [placeholder]="'eg: bug, enhancement'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="label" [placeholder]="( 'EXAMPLE' | translate ) + ': ' + ('BUG_ENHANCEMENT' | translate)" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
         <div class="input-box" >
           <span class="details">{{ 'CATEGORY' | translate }}</span>
@@ -32,11 +32,11 @@
       <div class="filter-details">
         <div class="input-box">
           <span class="details">{{ 'REPOSITORY' | translate }}</span>
-          <input type="text" formControlName="repository" [placeholder]="'Enter repository name'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="repository" [placeholder]="'REPOSITORY_NAME' | translate" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
         <div class="input-box">
           <span class="details">{{ 'TITLE' | translate }}</span>
-          <input type="text" formControlName="title" [placeholder]="'Issue Title'" [ngClass]="{ 'dark-mode': isDarkMode }">
+          <input type="text" formControlName="title" [placeholder]="'ISSUE_TITLE' | translate" [ngClass]="{ 'dark-mode': isDarkMode }">
         </div>
       </div>
       <div class="filter-details">
@@ -58,7 +58,7 @@
           <span class="details">{{ 'LICENSE' | translate }}</span>
           <select formControlName="license" [ngClass]="{ 'dark-mode': isDarkMode }" class="scrollable-dropdown">
             <option *ngFor="let license of licenses" [value]="license.value">
-              {{ license.label}}
+              {{ license.label | translate}}
             </option>
           </select>
         </div>        

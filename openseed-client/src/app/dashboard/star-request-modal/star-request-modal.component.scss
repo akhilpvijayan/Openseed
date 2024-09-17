@@ -1,0 +1,74 @@
+.popup-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  /* Popup header */
+  .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Popup title */
+  .popup-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Close button */
+  .close-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor:grab;
+    color: #666;
+    transition: color 0.3s;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  
+  /* Popup body */
+  .popup-body {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  /* GitHub Star Button */
+  .star-btn {
+    display: inline-block;
+    background-color: #24292e;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .star-btn:hover {
+    background-color: #000000;
+  }
+  
+  .star-btn i {
+    margin-right: 5px;
+  }
+  
+  .popup-body a {
+    font-weight: bold;
+  }
+  
+  .fab {
+    font-family: "Font Awesome 5 Brands";
+  }
+  

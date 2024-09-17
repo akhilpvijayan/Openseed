@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Allowed origins
-const allowedOrigins = ['http://localhost:4200', 'https://openseed.vercel.app'];
+const allowedOrigins = ['http://localhost:4200', 'https://openseed.vercel.app', 'https://openseed.web.app'];
 
 // Use CORS middleware
 app.use(cors({

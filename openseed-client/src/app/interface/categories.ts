@@ -1,16 +1,15 @@
 export const categories = [
-    { value: "all", label: 'All' },
-    { value: "education", label: 'Education' },
-    { value: "web", label: 'Web Development' },
-    { value: "mobile", label: 'Mobile Development' },
-    { value: "ios", label: 'IOS Development' },
-    { value: "blockchain", label: 'Blockchain Development' },
-    { value: "data-science", label: 'Data Science' },
-    { value: "artificial-intelligence", label: 'Artificial Intelligence' },
-    { value: "machine-learning", label: 'Machine Learning' },
-    { value: "devops", label: 'Devops' },
-    { value: "security", label: 'Cybersecurity' },
-    { value: "operating-system", label: 'Operating Systems' },
-    { value: "documentation", label: 'Documentation' }
-  ];
-  
+  { value: "all", label: 'CATEGORY_ALL' },
+  { value: "education", label: 'CATEGORY_EDUCATION' },
+  { value: "web", label: 'CATEGORY_WEB' },
+  { value: "mobile", label: 'CATEGORY_MOBILE' },
+  { value: "ios", label: 'CATEGORY_IOS' },
+  { value: "blockchain", label: 'CATEGORY_BLOCKCHAIN' },
+  { value: "data-science", label: 'CATEGORY_DATA_SCIENCE' },
+  { value: "artificial-intelligence", label: 'CATEGORY_AI' },
+  { value: "machine-learning", label: 'CATEGORY_MACHINE_LEARNING' },
+  { value: "devops", label: 'CATEGORY_DEVOPS' },
+  { value: "security", label: 'CATEGORY_SECURITY' },
+  { value: "operating-system", label: 'CATEGORY_OPERATING_SYSTEM' },
+  { value: "documentation", label: 'CATEGORY_DOCUMENTATION' }
+];
