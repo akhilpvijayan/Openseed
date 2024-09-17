@@ -167,7 +167,7 @@ export class BookmarkService {
     localStorage.removeItem(this.localStorageKey);
   }
 
-  getFilterBookmarks(filter: any = {}) {
+  getFilterBookmarks() {
     const bookmarks = localStorage.getItem(this.localtorageFilterKey);
     if(bookmarks){
       return JSON.parse(bookmarks)

@@ -93,7 +93,7 @@ export class FilterFormComponent implements OnInit{
 
   resetFormToDefault(): void {
     localStorage.removeItem('filterFormValues');
-    this.filterForm.reset(this.defaultValues);
+    this.filterForm.reset(this.setDefaultValues());
   }
 
   toggleCategoryField(isOnlyBookmarks: boolean): void {
@@ -103,9 +103,9 @@ export class FilterFormComponent implements OnInit{
       categoryControl?.disable();
     } else {
       categoryControl?.enable();
-      this.filterForm.patchValue({
-        category: 'all'
-      });
+      // this.filterForm.patchValue({
+      //   category: 'all'
+      // });
     }
   }
 }
