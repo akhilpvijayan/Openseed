@@ -5,7 +5,7 @@ OpenSeed is an open-source web application designed to help developers find "goo
 <img width="956" alt="image" src="https://github.com/user-attachments/assets/05b28f62-77ad-49d3-bc53-bd8e12d805ca">
 
 ## Live Demo
-Check out the live app: [OpenSeed](https://openseed.vercel.app/)
+Check out the live app: [OpenSeed](https://openseed.web.app/)
 
 ## Features
   - Discover Good First Issues: Find beginner-friendly GitHub issues to contribute to.
