@@ -98,7 +98,7 @@ export class GitHubService {
     }
 
     // // Filter by creation date before a certain date
-    if (params.license) {
+    if (params.license && params.license !== 'all') {
       queryString += ` license:"${params.license}"`;
     }
     

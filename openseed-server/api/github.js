@@ -16,16 +16,26 @@ export const fetchGitHubIssues = async (query, variables) => {
     const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${githubToken}`,
+        'Cache-Control': 'no-cache, no-store, must-revalidate',  // Disable caching
+    'Pragma': 'no-cache',
+    'Expires': '0',
     };
 
+    // Add a cache-busting timestamp
+    const cacheBuster = `cacheBuster=${new Date().getTime()}`;
+    const githubApiUrl = `${githubUrl}?${cacheBuster}`;
+
     try {
-        const response = await fetch(githubUrl, {
+        console.log("Inside API");
+        let data = null;
+        const response = await fetch(githubApiUrl, {
             method: 'POST',
             headers,
-            body: JSON.stringify({ query, variables })
+            body: JSON.stringify({ query, variables }),
+            cache: 'reload'
         });
 
-        const data = await response.json();
+        data = await response.json();
 
         if (!response.ok) {
             console.error('Error response from GitHub:', data);
@@ -38,3 +48,4 @@ export const fetchGitHubIssues = async (query, variables) => {
         throw error;
     }
 };
+
