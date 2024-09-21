@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { categories } from 'src/app/interface/categories';
+import { programmingLanguages } from 'src/app/interface/languages';
 import { licenses } from 'src/app/interface/licenses';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
@@ -17,15 +18,8 @@ export class FilterFormComponent implements OnInit{
   issues: any;
   categories = categories;
   licenses = licenses;
+  languages = programmingLanguages;
   defaultValues = this.setDefaultValues();
-  availableLanguages = [
-    { name: 'C#' },
-    { name: 'TypeScript' },
-    { name: 'JavaScript' },
-    { name: 'Python' },
-    { name: 'Java' },
-    { name: 'Ruby' }
-  ];
   
   selectedLanguages: any[] = [];
 
@@ -69,7 +63,7 @@ export class FilterFormComponent implements OnInit{
 
   setDefaultValues(): any{
     return this.bookMarkService.getFilterBookmarks() ? this.bookMarkService.getFilterBookmarks() : {
-      language: '',
+      language: 'all',
       owner: '',
       label: '',
       category: 'all',

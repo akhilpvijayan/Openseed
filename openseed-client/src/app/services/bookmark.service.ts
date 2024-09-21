@@ -37,7 +37,7 @@ export class BookmarkService {
     return parsedBookmarks.filter((bookmark: any) => {
 
       const hasFilters =
-        (filter.language && filter.language !== "") ||
+        (filter.language && filter.language !== "" && filter.language != 'all') ||
         (filter.minStars && filter.minStars !== null) ||
         (filter.maxStars && filter.maxStars !== null) ||
         (filter.minForks && filter.minForks !== null) ||
@@ -55,7 +55,7 @@ export class BookmarkService {
       }
 
       // Check if the language filter is provided and matches
-      if (filter.language !== undefined && filter.language !== "") {
+      if (filter.language !== undefined && filter.language !== "" && filter.language != 'all') {
         const filterLanguage = filter.language
           .split(',')
           .map((language: string) => language.trim().toLowerCase());

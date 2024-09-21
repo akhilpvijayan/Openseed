@@ -5,7 +5,7 @@ export interface FilterParams {
     searchQuery?: string;
     minStars: number;
     maxStars: number;
-    cursor?: string;
+    cursor?: string | null;
     owner?: string;
     label?: string;
     category?: string;

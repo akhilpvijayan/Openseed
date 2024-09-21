@@ -80,7 +80,7 @@ export class GitHubService {
       queryString += ` label:${labels.join(",")}`;
     }
 
-    if (params.language) {
+    if (params.language && params.language != 'all') {
       const languages = params.language.split(' ')
       const languageQuery = languages.map(lang => `language:${lang}`).join(' ')
       queryString += ` ${languageQuery}`
@@ -206,7 +206,7 @@ export class GitHubService {
       }`
   
     let queryString = 'is:public archived:false'
-    if (params.language) {
+    if (params.language && params.language != 'all') {
       const languages = params.language.split(' ')
       const languageQuery = languages.map(lang => `language:${lang}`).join(' ')
       queryString += ` ${languageQuery}`
