@@ -7,6 +7,8 @@ OpenSeed is an open-source web application designed to help developers find "goo
 ## Live Demo
 Check out the live app: [OpenSeed](https://openseed.web.app/)
 
+<a href="https://www.buymeacoffee.com/growcodecoding" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 ## Features
   - Discover Good First Issues: Find beginner-friendly GitHub issues to contribute to.
   - Filter by Programming Language: Narrow down issues by specific coding languages.
