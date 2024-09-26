@@ -62,4 +62,8 @@ closeDropdown() {
 
     this.dropdownOpen = false; // Close dropdown if clicking outside
   }
+
+  openGithub() {
+    window.open('https://github.com/akhilpvijayan/openseed', '_blank');
+  }  
 }

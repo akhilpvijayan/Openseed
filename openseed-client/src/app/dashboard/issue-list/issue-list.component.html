@@ -7,7 +7,7 @@
         <ul>
             <li *ngFor="let issue of issues">
                 <div class="content">
-                    <a [href]="issue?.html_url" target="_blank" class="title" [ngClass]="{ 'dark-mode': isDarkMode }"><b>{{
+                    <a [href]="issue?.html_url" target="_blank" class="title" [ngClass]="{ 'dark-mode': isDarkMode }"><b class="title-text">{{
                             issue?.title }}</b></a>
                     <p>{{ issue?.body }}</p>
                     <span class="repo-details"><i class="user fa-regular fa-user"></i>
