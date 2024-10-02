@@ -119,7 +119,7 @@ export class GitHubService {
     this.minForks = params.minForks ?? 0;
     this.maxForks = params.maxForks ?? 100000;
 
-    return this.http.post<any>(this.backendUrl, { query, variables })
+    return this.http.post<any>(this.backendUrl + "api/fetch-issues", { query, variables })
       .pipe(
         map(response => ({
           issues: response.data.search.nodes
@@ -246,7 +246,7 @@ export class GitHubService {
     this.minForks = params.minForks ?? 0;
     this.maxForks = params.maxForks ?? 100000;
   
-    return this.http.post<any>(this.backendUrl, { query, variables })
+    return this.http.post<any>(this.backendUrl + "api/fetch-issues", { query, variables })
     .pipe(
       map(response => {
         const repositories = response.data.search.nodes;
