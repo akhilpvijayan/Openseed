@@ -1,19 +1,52 @@
-<app-nav-bar></app-nav-bar>
-<div class="filter-bar">
-    <i class="fa-solid fa-filter filter" (click)="openFilter()"></i> 
-</div>
-<!-- Overlay and Popup for Filter Component -->
-<div class="overlay" *ngIf="isFilterPopUpOpen" (click)="closeFilter()"></div>
-<div class="filter-component" *ngIf="isFilterPopUpOpen">
-  <span class="close-btn" (click)="closeFilter()">&times;</span>
-  <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
-</div>
-<div id="boxes">
-    <div id="leftbox">
-        <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
-    </div>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="assets/logo.png" alt="OpenSeed Logo" class="app-logo"
+                onerror="this.src='assets/default-avatar.png'">
+            <div class="logo-text">
+                <h2>OPENSEED</h2>
+                <span>{{ 'DEVELOPER_HUB' | translate }}</span>
+            </div>
+        </div>
 
-    <div id="middlebox" #middlebox>
-        <app-issue-list [filter]="filter"></app-issue-list>
-    </div>
+        <div class="sidebar-filters">
+            <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <app-nav-bar></app-nav-bar>
+
+        <div class="content-area" #middlebox>
+            <div class="recommended-header">
+                <h1>{{ 'RECOMMENDED_FOR_YOU' | translate }}</h1>
+                <p>{{ 'CURATED_ISSUES' | translate }}</p>
+                <div class="interests-pills">
+                    <span class="pill" [class.active]="activeInterest === 'all'" (click)="setInterest('all')">All
+                        Interests</span>
+                    <span class="pill" [class.active]="activeInterest === 'typescript'"
+                        (click)="setInterest('typescript')"><span class="dot blue"></span> TypeScript</span>
+                    <span class="pill" [class.active]="activeInterest === 'rust'" (click)="setInterest('rust')"><span
+                            class="dot orange"></span> Rust</span>
+                    <span class="pill" [class.active]="activeInterest === 'python'"
+                        (click)="setInterest('python')"><span class="dot green"></span> Python</span>
+                </div>
+            </div>
+
+            <div class="issue-list-container">
+                <app-issue-list [filter]="filter"></app-issue-list>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Mobile Filter Overlay -->
+<div class="filter-bar mobile-only">
+    <i class="fa-solid fa-filter filter" (click)="openFilter()"></i>
+</div>
+<div class="overlay" *ngIf="isFilterPopUpOpen" (click)="closeFilter()"></div>
+<div class="filter-component mobile-popup" *ngIf="isFilterPopUpOpen">
+    <span class="close-btn" (click)="closeFilter()">&times;</span>
+    <app-filter-form (filters)="receiveFilter($event)"></app-filter-form>
 </div>

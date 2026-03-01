@@ -1,100 +1,111 @@
-<div class="container" [ngClass]="{ 'dark-mode': isDarkMode }">
-  <div class="title">
-    <i class="fa-solid fa-filter"></i> {{ 'FILTER' | translate }}
-  </div>
-  <div class="content">
-    <form [formGroup]="filterForm" (keydown.enter)="searchIssues()">
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'LANGUAGE' | translate }}</span>
-          <select formControlName="language" [ngClass]="{ 'dark-mode': isDarkMode}" class="scrollable-dropdown">
-            <option *ngFor="let language of languages" [value]="language.value" class="options">
-              {{ language.label | translate }}
-            </option>
-          </select>
+<div class="filter-container">
+  <form [formGroup]="filterForm" (keydown.enter)="searchIssues()" class="filter-form-content">
+
+    <div class="scrollable-fields compact-scroll">
+
+      <!-- GENERAL SECTION -->
+      <div class="filter-section">
+        <div class="section-header" [ngClass]="{'active': expandedSections[0]}" (click)="toggleSection(0)"
+          style="cursor: pointer;">
+          <span>{{ 'GENERAL' | translate }}</span>
+          <i class="fa-solid" [ngClass]="expandedSections[0] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
         </div>
-        <div class="input-box">
-          <span class="details">{{ 'OWNER' | translate }}</span>
-          <input type="text" formControlName="owner" [placeholder]="'OWNER_NAME' | translate" [ngClass]="{ 'dark-mode': isDarkMode }" autofocus>
-        </div>
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'LABEL' | translate }}</span>
-          <input type="text" formControlName="label" [placeholder]="( 'EXAMPLE' | translate ) + ': ' + ('BUG_ENHANCEMENT' | translate)" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box" >
-          <span class="details">{{ 'CATEGORY' | translate }}</span>
-          <select formControlName="category" [ngClass]="{ 'dark-mode': isDarkMode, 'disabled-select': filterForm.get('category')?.disabled }" class="scrollable-dropdown">
-            <option *ngFor="let category of categories" [value]="category.value">
-              {{ category.label | translate }}
-            </option>
-          </select>
-        </div>        
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'REPOSITORY' | translate }}</span>
-          <input type="text" formControlName="repository" [placeholder]="'REPOSITORY_NAME' | translate" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box">
-          <span class="details">{{ 'TITLE' | translate }}</span>
-          <input type="text" formControlName="title" [placeholder]="'ISSUE_TITLE' | translate" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'MIN_STARS' | translate }}</span>
-          <input type="number" formControlName="minStars" [placeholder]="'0'" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box">
-          <span class="details">{{ 'MAX_STARS' | translate }}</span>
-          <input type="number" formControlName="maxStars" [placeholder]="'10000'" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'CREATED_AFTER' | translate }}</span>
-          <input type="date" formControlName="createdAfter" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box">
-          <span class="details">{{ 'LICENSE' | translate }}</span>
-          <select formControlName="license" [ngClass]="{ 'dark-mode': isDarkMode }" class="scrollable-dropdown">
-            <option *ngFor="let license of licenses" [value]="license.value">
-              {{ license.label | translate}}
-            </option>
-          </select>
-        </div>        
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <span class="details">{{ 'MIN_FORKS' | translate }}</span>
-          <input type="number" formControlName="minForks" [placeholder]="'0'" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-        <div class="input-box">
-          <span class="details">{{ 'MAX_FORKS' | translate }}</span>
-          <input type="number" formControlName="maxForks" [placeholder]="'10000'" [ngClass]="{ 'dark-mode': isDarkMode }">
-        </div>
-      </div>
-      <div class="filter-details">
-        <div class="input-box">
-          <div class="checkbox-wrapper-51">
-            <input type="checkbox" id="cbx-51" formControlName="isOnlyBookmarks"/>
-            <label for="cbx-51" class="toggle">
-              <span>
-                <svg width="10px" height="10px" viewBox="0 0 10 10">
-                  <path d="M5,1 L5,1 C2.790861,1 1,2.790861 1,5 L1,5 C1,7.209139 2.790861,9 5,9 L5,9 C7.209139,9 9,7.209139 9,5 L9,5 C9,2.790861 7.209139,1 5,1 L5,9 L5,1 Z"></path>
-                </svg>
+        <div class="section-content" *ngIf="expandedSections[0]">
+          <div class="metric-group vertical">
+            <span class="sub-label">{{ 'LANGUAGE' | translate }}</span>
+            <div class="language-pills-sidebar">
+              <span class="pill-sidebar" *ngFor="let lang of languages"
+                [ngClass]="{'active': isLanguageSelected(lang.value)}" (click)="toggleLanguage(lang.value)">
+                {{ lang.label | translate }}
+                <i class="fa-solid" [ngClass]="isLanguageSelected(lang.value) ? 'fa-xmark' : 'fa-plus'"></i>
               </span>
-            </label>
-            <span class="label-text">{{ 'BOOKMARKS_ONLY' | translate }}</span>
-          </div>  
-        </div>
-        <div class="input-box">
-          <button class="button-92" type="button" (click)="resetFormToDefault()" role="button" [ngClass]="{ 'dark-mode': isDarkMode }">{{ 'RESET' | translate }}</button>
+            </div>
+          </div>
+          <div class="metric-group vertical">
+            <span class="sub-label">{{ 'CATEGORY' | translate }}</span>
+            <select formControlName="category" class="form-input modern-select" title="Category"
+              [ngClass]="{'disabled-input': filterForm.get('category')?.disabled}">
+              <option value="all" disabled selected hidden>{{ 'CATEGORY_ALL' | translate }}</option>
+              <option *ngFor="let category of categories" [value]="category.value">
+                {{ category.label | translate }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-    </form>
-  </div>
-  <button class="w-full px-3 py-1 button-88" id="submit" (click)="searchIssues()">{{ 'FILTER' | translate }}</button>
+
+      <!-- REPOSITORY STATS SECTION -->
+      <div class="filter-section">
+        <div class="section-header" [ngClass]="{'active': expandedSections[1]}" (click)="toggleSection(1)"
+          style="cursor: pointer;">
+          <span>{{ 'REPOSITORY_STATS' | translate }}</span>
+          <i class="fa-solid" [ngClass]="expandedSections[1] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </div>
+        <div class="section-content" *ngIf="expandedSections[1]">
+          <div class="metric-group vertical">
+            <span class="sub-label">STARS RANGE</span>
+            <div class="form-row flush range-row">
+              <input type="number" formControlName="minStars" placeholder="Min" class="form-input modern-input small">
+              <input type="number" formControlName="maxStars" placeholder="Max" class="form-input modern-input small">
+            </div>
+          </div>
+
+          <div class="metric-group vertical">
+            <span class="sub-label">FORKS RANGE</span>
+            <div class="form-row flush range-row">
+              <input type="number" formControlName="minForks" placeholder="Min" class="form-input modern-input small">
+              <input type="number" formControlName="maxForks" placeholder="Max" class="form-input modern-input small">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT DETAILS SECTION -->
+      <div class="filter-section">
+        <div class="section-header" [ngClass]="{'active': expandedSections[2]}" (click)="toggleSection(2)"
+          style="cursor: pointer;">
+          <span>{{ 'PROJECT_DETAILS' | translate }}</span>
+          <i class="fa-solid" [ngClass]="expandedSections[2] ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </div>
+        <div class="section-content" *ngIf="expandedSections[2]">
+          <div class="metric-group vertical">
+            <span class="sub-label">ISSUE TITLE</span>
+            <input type="text" formControlName="title" placeholder="Search titles..." class="form-input modern-input">
+          </div>
+
+          <div class="metric-group vertical">
+            <span class="sub-label">LICENSE</span>
+            <select formControlName="license" class="form-input modern-select">
+              <option value="all" disabled selected hidden>All Licenses</option>
+              <option *ngFor="let license of licenses" [value]="license.value">
+                {{ license.label | translate}}
+              </option>
+            </select>
+          </div>
+
+          <div class="inline-toggle compact end-toggle">
+            <span class="sub-label mb-0">BOOKMARKS ONLY</span>
+            <label class="switch-toggle" title="Show Bookmarks Only">
+              <input type="checkbox" formControlName="isOnlyBookmarks">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pinned Actions -->
+    <div class="form-bottom-actions compact-actions">
+      <div class="form-actions">
+        <button class="btn-primary mockup-green" type="button" (click)="searchIssues()">
+          APPLY FILTER
+        </button>
+        <button class="btn-icon dark-reset" type="button" (click)="resetFormToDefault()" title="Reset Filters">
+          <i class="fa-solid fa-rotate-right"></i>
+        </button>
+      </div>
+    </div>
+
+  </form>
 </div>

@@ -24,6 +24,7 @@
     "@ng-select/ng-select": "^11.2.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "firebase": "^12.10.0",
     "flag-icon-css": "^4.1.7",
     "flag-icons": "^7.2.3",
     "graphql": "^16.9.0",

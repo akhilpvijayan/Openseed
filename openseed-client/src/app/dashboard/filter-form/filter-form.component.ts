@@ -11,38 +11,46 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
   templateUrl: './filter-form.component.html',
   styleUrls: ['./filter-form.component.scss']
 })
-export class FilterFormComponent implements OnInit{
+export class FilterFormComponent implements OnInit {
   filterForm!: FormGroup;
   isDarkMode = this.darkModeService.isDarkModeEnabled();
   searchQuery = '';
   issues: any;
   categories = categories;
   licenses = licenses;
-  languages = programmingLanguages;
+  languages = programmingLanguages.filter(l => l.value !== 'all');
   defaultValues = this.setDefaultValues();
-  
-  selectedLanguages: any[] = [];
+
+  selectedLanguages: string[] = [];
+  expandedSections: boolean[] = [true, true, true];
 
   @Output() filters = new EventEmitter<string>();
 
   constructor(private formBuilder: FormBuilder,
     private darkModeService: DarkModeService,
-  private bookMarkService: BookmarkService){
-      this.darkModeService.darkMode$.subscribe((isDarkMode) => {
-        this.isDarkMode = isDarkMode;
-      });
-    }
+    private bookMarkService: BookmarkService) {
+    this.darkModeService.darkMode$.subscribe((isDarkMode) => {
+      this.isDarkMode = isDarkMode;
+    });
+  }
 
   ngOnInit(): void {
     this.setDefaultValues();
     this.initForm();
+
+    const initialLang = this.filterForm.get('language')?.value;
+    if (initialLang && initialLang !== 'all') {
+      this.selectedLanguages = initialLang.split(' ');
+    } else {
+      this.selectedLanguages = [];
+    }
 
     this.filterForm.get('isOnlyBookmarks')?.valueChanges.subscribe((isOnlyBookmarks) => {
       this.toggleCategoryField(isOnlyBookmarks);
     });
   }
 
-  initForm(){
+  initForm() {
     this.filterForm = this.formBuilder.group({
       language: [this.defaultValues.language],
       owner: [this.defaultValues.owner],
@@ -61,8 +69,16 @@ export class FilterFormComponent implements OnInit{
     this.toggleCategoryField(this.filterForm.value.isOnlyBookmarks);
   }
 
-  setDefaultValues(): any{
-    return this.bookMarkService.getFilterBookmarks() ? this.bookMarkService.getFilterBookmarks() : {
+  setDefaultValues(): any {
+    const storedFilter = localStorage.getItem('filterFormValues');
+    if (storedFilter) {
+      try {
+        return JSON.parse(storedFilter);
+      } catch (e) {
+        console.error("Error parsing filter values", e);
+      }
+    }
+    return {
       language: 'all',
       owner: '',
       label: '',
@@ -88,18 +104,39 @@ export class FilterFormComponent implements OnInit{
   resetFormToDefault(): void {
     localStorage.removeItem('filterFormValues');
     this.filterForm.reset(this.setDefaultValues());
+    this.selectedLanguages = [];
+  }
+
+  toggleLanguage(langValue: string): void {
+    const index = this.selectedLanguages.indexOf(langValue);
+    if (index === -1) {
+      this.selectedLanguages.push(langValue);
+    } else {
+      this.selectedLanguages.splice(index, 1);
+    }
+
+    if (this.selectedLanguages.length === 0) {
+      this.filterForm.patchValue({ language: 'all' });
+    } else {
+      this.filterForm.patchValue({ language: this.selectedLanguages.join(' ') });
+    }
+  }
+
+  isLanguageSelected(langValue: string): boolean {
+    return this.selectedLanguages.includes(langValue);
   }
 
   toggleCategoryField(isOnlyBookmarks: boolean): void {
     const categoryControl = this.filterForm.get('category');
-  
+
     if (isOnlyBookmarks) {
       categoryControl?.disable();
     } else {
       categoryControl?.enable();
-      // this.filterForm.patchValue({
-      //   category: 'all'
-      // });
     }
+  }
+
+  toggleSection(index: number): void {
+    this.expandedSections[index] = !this.expandedSections[index];
   }
 }

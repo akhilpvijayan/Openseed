@@ -1,28 +1,52 @@
-<nav class="navbar">
-    <div class="custom-select" (click)="toggleDropdown($event)" [ngClass]="{ 'dark-mode': isDarkMode }">
-        <div class="select-selected">
-            <img [src]="selectedLanguage.flag" alt="{{selectedLanguage.label}} flag" class="flag-icon" />
-            {{ selectedLanguage.label.toUpperCase() | translate }}
-        </div>
-        <div *ngIf="dropdownOpen" class="select-items">
-            <div *ngFor="let language of languages" class="select-item" (click)="switchLanguage(language, $event)">
-                <img [src]="language.flag" alt="{{language.label}} flag" class="flag-icon" />
-                {{ language.label.toUpperCase() | translate }}
+<nav class="navbar" [ngClass]="{ 'dark-mode-nav': isDarkMode }">
+    <!-- Navbar space filler to push right content -->
+    <div class="navbar-spacer" style="flex: auto;"></div>
+
+    <div class="navbar-right-actions">
+        <!-- Language Switcher -->
+        <div class="language-selector" (click)="toggleDropdown($event)">
+            <div class="current-lang">
+                <span
+                    class="flag-icon flag-icon-{{ currentLanguage === 'en' ? 'us' : currentLanguage === 'hi' ? 'in' : currentLanguage === 'ml' ? 'in' : currentLanguage }}"></span>
+                <span class="lang-text">{{ currentLanguage | uppercase }}</span>
+                <i class="fa-solid fa-chevron-down ms-1 text-xs"></i>
+            </div>
+
+            <div class="lang-dropdown" *ngIf="dropdownOpen">
+                <div class="lang-option" *ngFor="let lang of availableLanguages"
+                    (click)="changeLanguage(lang.code); closeDropdown()" [class.active]="currentLanguage === lang.code">
+                    <span
+                        class="flag-icon flag-icon-{{ lang.code === 'en' ? 'us' : lang.code === 'hi' ? 'in' : lang.code === 'ml' ? 'in' : lang.code }}"></span>
+                    {{ lang.label }}
+                    <i class="fa-solid fa-check ms-auto" *ngIf="currentLanguage === lang.code"></i>
+                </div>
             </div>
         </div>
-    </div>    
-    <div class="navbar-center">Open<span class="logo-half">Seed</span></div>
-    <button class="github-star" (click)="openGithub()">
-        <i class="fa-regular fa-star"></i>
-    </button>&nbsp;
-    <div class="navbar-icon">
-            <span>
-                <div class="checkbox-wrapper-54">
-                  <label class="switch">
-                    <input type="checkbox" [ngModel]="isDarkMode" (change)="toggleDarkMode()">
-                    <span class="slider"></span>
-                  </label>
+
+        <!-- Theme Switcher -->
+        <div class="theme-toggle" (click)="toggleDarkMode()">
+            <i class="fa-solid fa-moon" [class.active]="isDarkMode"></i>
+            <i class="fa-solid fa-sun" [class.active]="!isDarkMode"></i>
+        </div>
+
+        <!-- User Profile Area -->
+        <div class="user-profile">
+            <ng-container *ngIf="user; else loginTemplate">
+                <div class="user-info">
+                    <span class="user-name">{{ user.displayName }}</span>
+                    <span class="user-role" (click)="logout()"
+                        style="cursor: pointer; text-decoration: underline;">Logout</span>
                 </div>
-              </span>
+                <img [src]="user.photoURL || 'assets/default-avatar.png'" alt="Avatar" class="avatar-img">
+            </ng-container>
+
+            <ng-template #loginTemplate>
+                <div class="login-btn-container">
+                    <button class="login-button" (click)="login()">
+                        <i class="fa-brands fa-google"></i> Login
+                    </button>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </nav>

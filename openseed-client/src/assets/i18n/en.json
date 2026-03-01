@@ -109,6 +109,15 @@
   "LANGUAGE_SAS": "SAS",
   "LANGUAGE_J": "J",
   "LANGUAGE_MAXSCRIPT": "MaxScript",
-  "LANGUAGE_POSTSCRIPT": "PostScript"
+   "LANGUAGE_POSTSCRIPT": "PostScript",
+   "DEVELOPER_HUB": "DEVELOPER HUB",
+   "RECOMMENDED_FOR_YOU": "Recommended for you",
+   "CURATED_ISSUES": "Curated issues matching your interests and expertise.",
+   "VIEW_DETAILS": "View Details",
+   "LOAD_MORE": "Load More..",
+   "NO_MORE_ISSUES": "No more issues to load.",
+   "NO_ISSUES_BOOKMARKS": "No issues in bookmark.",
+   "GENERAL": "GENERAL",
+   "REPOSITORY_STATS": "REPOSITORY STATS",
+   "PROJECT_DETAILS": "PROJECT DETAILS"
   }
-  

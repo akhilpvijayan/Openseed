@@ -1,177 +1,101 @@
 import { Injectable } from '@angular/core';
-import { FilterParams } from '../interface/filter-params';
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, setDoc, deleteDoc, getDoc, collection, getDocs } from "firebase/firestore";
+import { environment } from '../environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookmarkService {
-  private localStorageKey = 'openseed-bookmarkedIssues';
-  private localtorageFilterKey = 'filterFormValues';
+  private app = initializeApp(environment.firebase);
+  private db = getFirestore(this.app);
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  // Add a bookmark to localStorage
-  addBookmark(item: any) {
-    const bookmarks = this.getBookmarks();
-    bookmarks.push(item);
-    localStorage.setItem(this.localStorageKey, JSON.stringify(bookmarks));
+  private getSafeId(id: string | number): string {
+    return encodeURIComponent(id.toString());
   }
 
-  // Remove a bookmark from localStorage
-  removeBookmark(item: any) {
-    let bookmarks = this.getBookmarks();
-    bookmarks = bookmarks.filter((bookmark) => bookmark.id !== item.id);
-    localStorage.setItem(this.localStorageKey, JSON.stringify(bookmarks));
+  private sanitizePayload(obj: any): any {
+    const sanitized = { ...obj };
+    Object.keys(sanitized).forEach(key => {
+      if (sanitized[key] === undefined) {
+        delete sanitized[key];
+      }
+    });
+    return sanitized;
   }
 
-  // Check if an item is bookmarked
-  isBookmarked(item: any): boolean {
-    const bookmarks = this.getBookmarks();
-    return bookmarks.some((bookmark) => bookmark.id === item.id);
-  }
-
-  // Fetch all bookmarks from localStorage
-  getBookmarks(filter: any = {}): any[] {
-    const bookmarks = localStorage.getItem(this.localStorageKey);
-    const parsedBookmarks = bookmarks ? JSON.parse(bookmarks) : [];
-    return parsedBookmarks.filter((bookmark: any) => {
-
-      const hasFilters =
-        (filter.language && filter.language !== "" && filter.language != 'all') ||
-        (filter.minStars && filter.minStars !== null) ||
-        (filter.maxStars && filter.maxStars !== null) ||
-        (filter.minForks && filter.minForks !== null) ||
-        (filter.maxForks && filter.maxForks !== null) ||
-        (filter.owner && filter.owner !== "") ||
-        (filter.label && filter.label !== "") ||
-        (filter.category && filter.category !== "") ||
-        (filter.createdAfter && filter.createdAfter !== null && filter.createdAfter !== "") ||
-        (filter.title && filter.title !== "") ||
-        (filter.repository && filter.repository !== "");
-
-      // If no filters are provided, return the bookmark as is
-      if (!hasFilters) {
+  async toggleBookmarkFirestore(issue: any): Promise<boolean> {
+    const user = this.authService.getCurrentUser();
+    if (!user) {
+      // Fallback to local storage
+      let localBookmarks = this.getLocalBookmarks();
+      const existsIndex = localBookmarks.findIndex((b: any) => b.id === issue.id);
+      if (existsIndex > -1) {
+        localBookmarks.splice(existsIndex, 1);
+        localStorage.setItem('bookmarks', JSON.stringify(localBookmarks));
+        return false;
+      } else {
+        localBookmarks.push(issue);
+        localStorage.setItem('bookmarks', JSON.stringify(localBookmarks));
         return true;
       }
-
-      // Check if the language filter is provided and matches
-      if (filter.language !== undefined && filter.language !== "" && filter.language != 'all') {
-        const filterLanguage = filter.language
-          .split(',')
-          .map((language: string) => language.trim().toLowerCase());
-
-        let bookmarkLanguages = bookmark.language;
-        bookmarkLanguages = bookmarkLanguages.split(',')
-          .map((language: string) => language.trim().toLowerCase());
-
-        const hasMatchingLanguage = filterLanguage.some((language: string) =>
-          bookmarkLanguages.includes(language)
-        );
-
-        if (!hasMatchingLanguage) {
-          return false;
-        }
-      }
-
-      // Check if the minimum stars filter is provided and matches
-      if (filter.minStars !== null) {
-        if (bookmark.stars_count < filter.minStars) {
-          return false;
-        }
-      }
-
-      // Check if the maximum stars filter is provided and matches
-      if (filter.maxStars !== null) {
-        if (bookmark.stars_count > filter.maxStars) {
-          return false;
-        }
-      }
-
-      // Check if the minimum forks filter is provided and matches
-      if (filter.minForks !== null) {
-        if (bookmark.fork_count < filter.minForks) {
-          return false;
-        }
-      }
-
-      // Check if the maximum forks filter is provided and matches
-      if (filter.maxForks !== null) {
-        if (bookmark.fork_count > filter.maxForks) {
-          return false;
-        }
-      }
-
-      // Check if the owner filter is provided and matches
-      if (filter.owner !== "") {
-        if (bookmark.owner_name.toLowerCase() !== filter.owner.toLowerCase()) {
-          return false;
-        }
-      }
-
-      // Check if the label filter is provided and matches
-      if (filter.label !== "") {
-        const filterLabels = filter.label
-          .split(',')
-          .map((label: any) => label.trim().toLowerCase());
-        const hasMatchingLabel = filterLabels.some((label: any) =>
-          bookmark.labels.map((l: any) => l.toLowerCase()).includes(label)
-        );
-        if (!hasMatchingLabel) {
-          return false;
-        }
-      }
-
-      // Check if the category filter is provided and matches
-      // if (filter.category !== "") {
-      //   if (bookmark.category.toLowerCase() !== filter.category.toLowerCase()) {
-      //     return false;
-      //   }
-      // }
-
-      // Check if the license filter is provided and matches
-      if (filter.license !== null) {
-        if (bookmark.license.name === filter.license) {
-          return false;
-        }
-      }
-
-      // Check if the createdAfter filter is provided and matches
-      if (filter.createdAfter !== null && filter.createdAfter !== "") {
-        if (new Date(bookmark.created_at) < new Date(filter.createdAfter)) {
-          return false;
-        }
-      }
-
-      // Check if the title filter is provided and matches
-      if (filter.title !== "") {
-        if (!bookmark.title.toLowerCase().includes(filter.title.toLowerCase())) {
-          return false;
-        }
-      }
-
-      // Check if the repository filter is provided and matches
-      if (filter.repository !== "") {
-        if (bookmark.repository_name.toLowerCase() !== filter.repository.toLowerCase()) {
-          return false;
-        }
-      }
-
-      // If all conditions are met, return true
-      return true;
-    });
-  }
-
-
-  // Clear all bookmarks (optional)
-  clearBookmarks() {
-    localStorage.removeItem(this.localStorageKey);
-  }
-
-  getFilterBookmarks() {
-    const bookmarks = localStorage.getItem(this.localtorageFilterKey);
-    if(bookmarks){
-      return JSON.parse(bookmarks)
     }
-    return false;
+
+    const docRef = doc(this.db, `users/${user.uid}/bookmarks`, this.getSafeId(issue.id));
+    const docSnap = await getDoc(docRef);
+
+    try {
+      if (docSnap.exists()) {
+        await deleteDoc(docRef);
+        return false; // Removed bookmark
+      } else {
+        const cleanIssue = this.sanitizePayload(issue);
+        await setDoc(docRef, cleanIssue);
+        return true; // Added bookmark
+      }
+    } catch (err) {
+      console.error("Error toggling bookmark in Firestore:", err);
+      return false;
+    }
+  }
+
+  async isBookmarkedFirestore(issueId: number): Promise<boolean> {
+    const user = this.authService.getCurrentUser();
+    if (!user) {
+      const local = this.getLocalBookmarks();
+      return local.some((b: any) => b.id === issueId);
+    }
+
+    const docRef = doc(this.db, `users/${user.uid}/bookmarks`, this.getSafeId(issueId));
+    const docSnap = await getDoc(docRef);
+    return docSnap.exists();
+  }
+
+  async getAllBookmarksFirestore(): Promise<any[]> {
+    const user = this.authService.getCurrentUser();
+    if (!user) {
+      return this.getLocalBookmarks();
+    }
+
+    try {
+      const bookmarksRef = collection(this.db, `users/${user.uid}/bookmarks`);
+      const snapshot = await getDocs(bookmarksRef);
+      const bookmarks: any[] = [];
+      snapshot.forEach(doc => {
+        bookmarks.push(doc.data());
+      });
+      return bookmarks;
+    } catch (err) {
+      console.error("Error fetching bookmarks", err);
+      return this.getLocalBookmarks();
+    }
+  }
+
+  private getLocalBookmarks(): any[] {
+    const bm = localStorage.getItem('bookmarks');
+    return bm ? JSON.parse(bm) : [];
   }
 }

@@ -6,16 +6,23 @@
 @import '~flag-icon-css/css/flag-icons.min.css';
 
 
-.dark-mode{
-    background-color: rgb(2, 5, 21);
-    color: white;
+.dark-mode {
+    background-color: #0f172a;
+    color: #f8fafc;
 }
 
-input{
-  .dark-mode{
-    background-color: rgb(150, 150, 150);
-    color: white;
-}
+input {
+    &.dark-mode, .dark-mode & {
+        background-color: #1e293b;
+        color: #f8fafc;
+        border: 1px solid #334155;
+        
+        &:focus {
+            outline: none;
+            border-color: #4ade80;
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+        }
+    }
 }
 
 .button-88 {
@@ -25,34 +32,34 @@ input{
     font-family: inherit;
     font-weight: 500;
     font-size: 16px;
-    padding: 0.3em 1.4em 0.3em 1.1em;
+    padding: 0.5em 1.5em;
     color: white;
-    background: #0f0e0e;
-    background: linear-gradient(135deg, #5dc930 0%, #34930c 100%);
+    background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.2), 0 2px 4px -1px rgba(22, 163, 74, 0.1);
     letter-spacing: 0.05em;
-    border-radius: 0.5em;
+    border-radius: 0.75rem;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
     &:hover {
-      box-shadow: 0 0.5em 1.5em -0.5em #5dc930;
-      transform: scale(1.05); 
-      background: linear-gradient(-135deg, #5dc930 0%, #34930c 100%);
+        transform: translateY(-2px); 
+        box-shadow: 0 10px 15px -3px rgba(22, 163, 74, 0.3), 0 4px 6px -2px rgba(22, 163, 74, 0.15);
+        background: linear-gradient(-135deg, #4ade80 0%, #16a34a 100%);
     }
   
     &:active {
-      box-shadow: 0 0.3em 1em -0.5em #5dc930;
+        transform: translateY(0);
+        box-shadow: 0 4px 6px -1px rgba(22, 163, 74, 0.2);
     }
   
     &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
     }
-  }  
+}

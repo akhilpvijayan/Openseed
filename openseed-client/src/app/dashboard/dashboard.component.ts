@@ -9,13 +9,13 @@ import { StarRequestModalComponent } from './star-request-modal/star-request-mod
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit,OnDestroy{
+export class DashboardComponent implements OnInit, OnDestroy {
   filter: any;
   isFilterPopUpOpen: boolean = false;
   showPopup: boolean = false;
-  private timeSpentSubscription: Subscription = new Subscription(); 
+  private timeSpentSubscription: Subscription = new Subscription();
 
-  constructor(private dialog: MatDialog){}
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.checkIfStarred();
@@ -25,9 +25,9 @@ export class DashboardComponent implements OnInit,OnDestroy{
     const hasStarred = localStorage.getItem('starGiven');
     if (!hasStarred) {
       setTimeout(() => {
-        this.dialog.open(StarRequestModalComponent,{
-          width:'auto',
-          height:'auto',
+        this.dialog.open(StarRequestModalComponent, {
+          width: 'auto',
+          height: 'auto',
           hasBackdrop: true,
           enterAnimationDuration: '300ms',
           exitAnimationDuration: '300ms',
@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit,OnDestroy{
     this.closeFilter();
   }
 
-  openFilter(){
+  openFilter() {
     this.isFilterPopUpOpen = true;
   }
 
@@ -56,6 +56,21 @@ export class DashboardComponent implements OnInit,OnDestroy{
   onStarClick(): void {
     localStorage.setItem('starGiven', 'true'); // Add a flag to localStorage
     this.closePopup();
+  }
+
+  activeInterest: string = 'all';
+
+  setInterest(interest: string) {
+    this.activeInterest = interest;
+    if (!this.filter) {
+      this.filter = {};
+    }
+
+    // Create new filter object to trigger Angular change detection
+    this.filter = {
+      ...this.filter,
+      language: interest === 'all' ? 'all' : interest
+    };
   }
 
   ngOnDestroy(): void {
