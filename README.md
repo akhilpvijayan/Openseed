@@ -2,7 +2,7 @@
 
 OpenSeed is an open-source web application designed to help developers find "good first issues" on GitHub, making it easy to start contributing to open source projects.
 
-<img width="956" alt="image" src="https://github.com/user-attachments/assets/05b28f62-77ad-49d3-bc53-bd8e12d805ca">
+<img width="1902" height="940" alt="image" src="https://github.com/user-attachments/assets/fe033526-5443-4419-9321-a1ae31e29332" />
 
 ## Live Demo
 Check out the live app: [OpenSeed](https://openseed.web.app/)
