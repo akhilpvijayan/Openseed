@@ -121,5 +121,18 @@
   "NO_ISSUES_BOOKMARKS": "Aucun problème dans les signets.",
   "GENERAL": "GÉNÉRAL",
   "REPOSITORY_STATS": "STATISTIQUES DU RÉFÉRENTIEL",
-  "PROJECT_DETAILS": "DÉTAILS DU PROJET"
+  "PROJECT_DETAILS": "DÉTAILS DU PROJET",
+  "UNASSIGNED_ONLY": "Non assignées uniquement",
+  "SORT_BY": "Trier par",
+  "SORT_NEWEST": "Les plus récentes d'abord",
+  "SORT_OLDEST": "Les plus anciennes d'abord",
+  "SORT_STARS": "Le plus d'étoiles",
+  "SORT_FORKS": "Le plus de forks",
+  "STARS_RANGE": "Gamme d'étoiles",
+  "FORKS_RANGE": "Gamme de forks",
+  "MIN": "Min",
+  "MAX": "Max",
+  "SEARCH_TITLES_PLACEHOLDER": "Rechercher des titres...",
+  "ALL_LICENSES": "Toutes les licences",
+  "APPLY_FILTER": "Appliquer le filtre"
 }

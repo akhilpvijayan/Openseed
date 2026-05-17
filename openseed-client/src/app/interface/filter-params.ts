@@ -1,6 +1,8 @@
 export interface FilterParams {
     language?: string;
     isAssigned?: boolean;
+    isUnassignedOnly?: boolean;
+    sortBy?: string;
     hasPullRequests?: boolean;
     searchQuery?: string;
     minStars: number;
