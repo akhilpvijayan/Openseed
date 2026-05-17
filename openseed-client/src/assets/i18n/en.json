@@ -119,5 +119,18 @@
    "NO_ISSUES_BOOKMARKS": "No issues in bookmark.",
    "GENERAL": "GENERAL",
    "REPOSITORY_STATS": "REPOSITORY STATS",
-   "PROJECT_DETAILS": "PROJECT DETAILS"
+   "PROJECT_DETAILS": "PROJECT DETAILS",
+   "UNASSIGNED_ONLY": "Unassigned Only",
+   "SORT_BY": "Sort By",
+   "SORT_NEWEST": "Newest First",
+   "SORT_OLDEST": "Oldest First",
+   "SORT_STARS": "Most Stars",
+   "SORT_FORKS": "Most Forks",
+   "STARS_RANGE": "Stars Range",
+   "FORKS_RANGE": "Forks Range",
+   "MIN": "Min",
+   "MAX": "Max",
+   "SEARCH_TITLES_PLACEHOLDER": "Search titles...",
+   "ALL_LICENSES": "All Licenses",
+   "APPLY_FILTER": "Apply Filter"
   }

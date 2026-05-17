@@ -107,7 +107,12 @@ export class GitHubService {
       queryString += ` ${params.title} in:name`;
     }
 
-    queryString += " sort:created-desc"; // Sorting
+    if (params.isUnassignedOnly) {
+      queryString += " no:assignee";
+    }
+
+    const sortValue = params.sortBy || 'created-desc';
+    queryString += ` sort:${sortValue}`; // Sorting
 
     const variables = {
       queryString,
@@ -121,7 +126,7 @@ export class GitHubService {
 
     return this.http.post<any>(this.backendUrl + "api/fetch-issues", { query, variables })
       .pipe(
-        map(response => ({
+        map((response: any) => ({
           issues: response.data.search.nodes
           .filter((issue: any) => {
             const hasLicense = Boolean(issue.repository.licenseInfo);
@@ -151,7 +156,7 @@ export class GitHubService {
           hasNextPage: response.data.search.pageInfo.hasNextPage,
           endCursor: response.data.search.pageInfo.endCursor,
         })),
-        catchError(error => {
+        catchError((error: any) => {
           console.error("Error fetching GitHub issues:", error);
           return throwError(error);
         })
@@ -248,7 +253,7 @@ export class GitHubService {
   
     return this.http.post<any>(this.backendUrl + "api/fetch-issues", { query, variables })
     .pipe(
-      map(response => {
+      map((response: any) => {
         const repositories = response.data.search.nodes;
         const filteredRepositories = repositories.filter((repo: any) => {
           const hasLicense = Boolean(repo.licenseInfo);
@@ -298,9 +303,25 @@ export class GitHubService {
               isTitleMatch = titleLowerCase.includes(searchTitle);
             }
 
-            return isDateInRange && isTitleMatch;
+            let isUnassignedMatch = true;
+            if (params.isUnassignedOnly) {
+              isUnassignedMatch = !issue.is_assigned;
+            }
+
+            return isDateInRange && isTitleMatch && isUnassignedMatch;
           })          
         );
+
+        const sortBy = params.sortBy || 'created-desc';
+        if (sortBy === 'created-desc') {
+          issues.sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        } else if (sortBy === 'created-asc') {
+          issues.sort((a: any, b: any) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+        } else if (sortBy === 'stars-desc') {
+          issues.sort((a: any, b: any) => (b.stars_count || 0) - (a.stars_count || 0));
+        } else if (sortBy === 'forks-desc') {
+          issues.sort((a: any, b: any) => (b.fork_count || 0) - (a.fork_count || 0));
+        }
   
         return {
           issues,
@@ -308,7 +329,7 @@ export class GitHubService {
           endCursor: response.data.search.pageInfo.endCursor,
         };
       }),
-      catchError(error => {
+      catchError((error: any) => {
         console.error("Error fetching GitHub issues:", error);
         return throwError(error);
       })

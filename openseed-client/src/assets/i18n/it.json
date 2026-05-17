@@ -121,5 +121,18 @@
   "NO_ISSUES_BOOKMARKS": "Nessun problema nei segnalibri.",
   "GENERAL": "GENERALE",
   "REPOSITORY_STATS": "STATISTICHE REPOSITORY",
-  "PROJECT_DETAILS": "DETTAGLI PROGETTO"
+  "PROJECT_DETAILS": "DETTAGLI PROGETTO",
+  "UNASSIGNED_ONLY": "Solo non assegnate",
+  "SORT_BY": "Ordina per",
+  "SORT_NEWEST": "Più recenti prima",
+  "SORT_OLDEST": "Più vecchi prima",
+  "SORT_STARS": "Più stelle",
+  "SORT_FORKS": "Più fork",
+  "STARS_RANGE": "Intervallo stelle",
+  "FORKS_RANGE": "Intervallo fork",
+  "MIN": "Min",
+  "MAX": "Max",
+  "SEARCH_TITLES_PLACEHOLDER": "Cerca titoli...",
+  "ALL_LICENSES": "Tutte le licenze",
+  "APPLY_FILTER": "Applica filtro"
 }

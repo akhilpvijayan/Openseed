@@ -121,5 +121,18 @@
   "NO_ISSUES_BOOKMARKS": "बुकमार्क में कोई मुद्दे नहीं हैं।",
   "GENERAL": "सामान्य",
   "REPOSITORY_STATS": "भंडार आँकड़े",
-  "PROJECT_DETAILS": "परियोजना विवरण"
+  "PROJECT_DETAILS": "परियोजना विवरण",
+  "UNASSIGNED_ONLY": "केवल असाइन न किए गए",
+  "SORT_BY": "क्रमित करें",
+  "SORT_NEWEST": "सबसे नए पहले",
+  "SORT_OLDEST": "सबसे पुराने पहले",
+  "SORT_STARS": "सबसे अधिक सितारे",
+  "SORT_FORKS": "सबसे अधिक कांटे (Forks)",
+  "STARS_RANGE": "सितारों की संख्या",
+  "FORKS_RANGE": "कांटे की संख्या",
+  "MIN": "न्यूनतम",
+  "MAX": "अधिकतम",
+  "SEARCH_TITLES_PLACEHOLDER": "शीर्षक खोजें...",
+  "ALL_LICENSES": "सभी लाइसेंस",
+  "APPLY_FILTER": "फ़िल्टर लागू करें"
 }
