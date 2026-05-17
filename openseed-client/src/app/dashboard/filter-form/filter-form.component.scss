@@ -250,6 +250,7 @@
   &.disabled-input {
     opacity: 0.5;
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   &[type=number]::-webkit-inner-spin-button,
@@ -269,6 +270,16 @@
 
   :host-context(.dark-mode) & {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  }
+
+  option {
+    background-color: #ffffff;
+    color: #1e293b;
+
+    :host-context(.dark-mode) & {
+      background-color: #1e293b;
+      color: #f8fafc;
+    }
   }
 }
 
@@ -325,13 +336,17 @@
   }
 
   input:checked+.slider-round {
-    background-color: rgba(99, 102, 241, 0.2);
+    background-color: rgba(74, 222, 128, 0.2);
   }
 
   input:checked+.slider-round:before {
-    background-color: #6366f1;
-    /* purple-indigo */
+    background-color: #22c55e;
+    /* emerald green to match layout theme */
     transform: translateX(16px);
+
+    :host-context(.dark-mode) & {
+      background-color: #4ade80;
+    }
   }
 }
 
@@ -427,4 +442,10 @@
   &:hover {
     background-color: rgba(74, 222, 128, 0.05);
   }
+}
+
+.disabled-input {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
 }

@@ -1,3 +1,5 @@
 node_modules/
 .env
 dist
+.angular/
+openseed-client/.angular/
