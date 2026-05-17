@@ -29,7 +29,7 @@ export class FilterFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private darkModeService: DarkModeService,
     private bookMarkService: BookmarkService) {
-    this.darkModeService.darkMode$.subscribe((isDarkMode) => {
+    this.darkModeService.darkMode$.subscribe((isDarkMode: boolean) => {
       this.isDarkMode = isDarkMode;
     });
   }
@@ -45,7 +45,7 @@ export class FilterFormComponent implements OnInit {
       this.selectedLanguages = [];
     }
 
-    this.filterForm.get('isOnlyBookmarks')?.valueChanges.subscribe((isOnlyBookmarks) => {
+    this.filterForm.get('isOnlyBookmarks')?.valueChanges.subscribe((isOnlyBookmarks: any) => {
       this.toggleCategoryField(isOnlyBookmarks);
     });
   }
@@ -64,7 +64,9 @@ export class FilterFormComponent implements OnInit {
       createdAfter: [this.defaultValues.createdAfter],
       minForks: [this.defaultValues.minForks],
       maxForks: [this.defaultValues.maxForks],
-      isOnlyBookmarks: [this.defaultValues.isOnlyBookmarks]
+      isOnlyBookmarks: [this.defaultValues.isOnlyBookmarks],
+      isUnassignedOnly: [this.defaultValues.isUnassignedOnly],
+      sortBy: [this.defaultValues.sortBy]
     });
     this.toggleCategoryField(this.filterForm.value.isOnlyBookmarks);
   }
@@ -91,7 +93,9 @@ export class FilterFormComponent implements OnInit {
       createdAfter: null,
       minForks: 0,
       maxForks: 10000,
-      isOnlyBookmarks: false
+      isOnlyBookmarks: false,
+      isUnassignedOnly: false,
+      sortBy: 'created-desc'
     };
   }
 
@@ -128,11 +132,17 @@ export class FilterFormComponent implements OnInit {
 
   toggleCategoryField(isOnlyBookmarks: boolean): void {
     const categoryControl = this.filterForm.get('category');
+    const isUnassignedOnlyControl = this.filterForm.get('isUnassignedOnly');
+    const sortByControl = this.filterForm.get('sortBy');
 
     if (isOnlyBookmarks) {
       categoryControl?.disable();
+      isUnassignedOnlyControl?.disable();
+      sortByControl?.disable();
     } else {
       categoryControl?.enable();
+      isUnassignedOnlyControl?.enable();
+      sortByControl?.enable();
     }
   }
 

@@ -122,5 +122,18 @@
   "NO_ISSUES_BOOKMARKS": "Keine Probleme in den Lesezeichen.",
   "GENERAL": "ALLGEMEIN",
   "REPOSITORY_STATS": "REPOSITORY-STATISTIKEN",
-  "PROJECT_DETAILS": "PROJEKTDETAILS"
+  "PROJECT_DETAILS": "PROJEKTDETAILS",
+  "UNASSIGNED_ONLY": "Nur nicht zugewiesene",
+  "SORT_BY": "Sortieren nach",
+  "SORT_NEWEST": "Neueste zuerst",
+  "SORT_OLDEST": "Älteste zuerst",
+  "SORT_STARS": "Meiste Sterne",
+  "SORT_FORKS": "Meiste Forks",
+  "STARS_RANGE": "Sternebereich",
+  "FORKS_RANGE": "Forks-Bereich",
+  "MIN": "Min",
+  "MAX": "Max",
+  "SEARCH_TITLES_PLACEHOLDER": "Titel suchen...",
+  "ALL_LICENSES": "Alle Lizenzen",
+  "APPLY_FILTER": "Filter anwenden"
 }

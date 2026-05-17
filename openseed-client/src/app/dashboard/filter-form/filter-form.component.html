@@ -31,6 +31,17 @@
               </option>
             </select>
           </div>
+
+          <div class="metric-group vertical">
+            <span class="sub-label">{{ 'SORT_BY' | translate }}</span>
+            <select formControlName="sortBy" class="form-input modern-select" title="Sort By"
+              [ngClass]="{'disabled-input': filterForm.get('sortBy')?.disabled}">
+              <option value="created-desc">{{ 'SORT_NEWEST' | translate }}</option>
+              <option value="created-asc">{{ 'SORT_OLDEST' | translate }}</option>
+              <option value="stars-desc">{{ 'SORT_STARS' | translate }}</option>
+              <option value="forks-desc">{{ 'SORT_FORKS' | translate }}</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -43,18 +54,18 @@
         </div>
         <div class="section-content" *ngIf="expandedSections[1]">
           <div class="metric-group vertical">
-            <span class="sub-label">STARS RANGE</span>
+            <span class="sub-label">{{ 'STARS_RANGE' | translate }}</span>
             <div class="form-row flush range-row">
-              <input type="number" formControlName="minStars" placeholder="Min" class="form-input modern-input small">
-              <input type="number" formControlName="maxStars" placeholder="Max" class="form-input modern-input small">
+              <input type="number" formControlName="minStars" [placeholder]="'MIN' | translate" class="form-input modern-input small">
+              <input type="number" formControlName="maxStars" [placeholder]="'MAX' | translate" class="form-input modern-input small">
             </div>
           </div>
 
           <div class="metric-group vertical">
-            <span class="sub-label">FORKS RANGE</span>
+            <span class="sub-label">{{ 'FORKS_RANGE' | translate }}</span>
             <div class="form-row flush range-row">
-              <input type="number" formControlName="minForks" placeholder="Min" class="form-input modern-input small">
-              <input type="number" formControlName="maxForks" placeholder="Max" class="form-input modern-input small">
+              <input type="number" formControlName="minForks" [placeholder]="'MIN' | translate" class="form-input modern-input small">
+              <input type="number" formControlName="maxForks" [placeholder]="'MAX' | translate" class="form-input modern-input small">
             </div>
           </div>
         </div>
@@ -69,14 +80,14 @@
         </div>
         <div class="section-content" *ngIf="expandedSections[2]">
           <div class="metric-group vertical">
-            <span class="sub-label">ISSUE TITLE</span>
-            <input type="text" formControlName="title" placeholder="Search titles..." class="form-input modern-input">
+            <span class="sub-label">{{ 'ISSUE_TITLE' | translate }}</span>
+            <input type="text" formControlName="title" [placeholder]="'SEARCH_TITLES_PLACEHOLDER' | translate" class="form-input modern-input">
           </div>
 
           <div class="metric-group vertical">
-            <span class="sub-label">LICENSE</span>
+            <span class="sub-label">{{ 'LICENSE' | translate }}</span>
             <select formControlName="license" class="form-input modern-select">
-              <option value="all" disabled selected hidden>All Licenses</option>
+              <option value="all" disabled selected hidden>{{ 'ALL_LICENSES' | translate }}</option>
               <option *ngFor="let license of licenses" [value]="license.value">
                 {{ license.label | translate}}
               </option>
@@ -84,9 +95,17 @@
           </div>
 
           <div class="inline-toggle compact end-toggle">
-            <span class="sub-label mb-0">BOOKMARKS ONLY</span>
+            <span class="sub-label mb-0">{{ 'BOOKMARKS_ONLY' | translate }}</span>
             <label class="switch-toggle" title="Show Bookmarks Only">
               <input type="checkbox" formControlName="isOnlyBookmarks">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+
+          <div class="inline-toggle compact end-toggle" [ngClass]="{'disabled-input': filterForm.get('isUnassignedOnly')?.disabled}">
+            <span class="sub-label mb-0">{{ 'UNASSIGNED_ONLY' | translate }}</span>
+            <label class="switch-toggle" title="Show Unassigned Only">
+              <input type="checkbox" formControlName="isUnassignedOnly">
               <span class="slider-round"></span>
             </label>
           </div>
@@ -99,7 +118,7 @@
     <div class="form-bottom-actions compact-actions">
       <div class="form-actions">
         <button class="btn-primary mockup-green" type="button" (click)="searchIssues()">
-          APPLY FILTER
+          {{ 'APPLY_FILTER' | translate }}
         </button>
         <button class="btn-icon dark-reset" type="button" (click)="resetFormToDefault()" title="Reset Filters">
           <i class="fa-solid fa-rotate-right"></i>
